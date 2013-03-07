@@ -14,25 +14,50 @@
 
 @implementation ProfileSelectViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    self = [super init];
+    if (self){
+        UINavigationItem *n = [self navigationItem];
+        [n setTitle:@"Profiles"];
+        
+        // Create a new bar button item that will send
+        // addNewItem: to ItemsViewController
+        /*UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                target:self
+                                action:@selector(addNewItem:)];*/
+        // Set this bar button item as the right item in the navigationItem
+        //[[self navigationItem] setRightBarButtonItem:bbi];
+        //[[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
+        
+        
+        [profileTable insertRowsAtIndexPaths:<#(NSArray *)#> withRowAnimation:<#(UITableViewRowAnimation)#>]
+        
+        // Create a new BNRItem and add it to the store
+        BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
+        // Figure out where that item is in the array
+        int lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
+        
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
+        // Insert this new row into the table.
+        [[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
+                                withRowAnimation:UITableViewRowAnimationTop];
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (IBAction)selectProfileAndContinue:(id)sender
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    PlaylistSelectViewController *playlistSelectViewController = [[PlaylistSelectViewController alloc] init];
+    
+    //NSArray *items = [[BNRItemStore sharedStore] allItems];
+    //BNRItem *selectedItem = [items objectAtIndex:[indexPath row]];
+    // Give detail view controller a pointer to the item object in row
+    //[detailViewController setItem:selectedItem];
+    
+    [[self navigationController] pushViewController:playlistSelectViewController
+                                           animated:YES];
 }
 
 @end

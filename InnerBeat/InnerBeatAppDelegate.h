@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileSelectViewController.h"
 
 @interface InnerBeatAppDelegate : UIResponder <UIApplicationDelegate>
 

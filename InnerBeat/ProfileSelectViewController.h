@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlaylistSelectViewController.h"
 
 @interface ProfileSelectViewController : UIViewController
+{
+    __weak IBOutlet UITableView *profileTable;
+}
+
+- (IBAction)selectProfileAndContinue:(id)sender;
 
 @end
