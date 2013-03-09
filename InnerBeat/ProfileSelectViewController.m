@@ -7,6 +7,7 @@
 //
 
 #import "ProfileSelectViewController.h"
+#import "ProfileItemStore.h"
 
 @interface ProfileSelectViewController ()
 
@@ -31,8 +32,11 @@
         //[[self navigationItem] setRightBarButtonItem:bbi];
         //[[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
         
+       // NSArray *profiles = [[ProfileItemStore sharedStore] allProfiles];
         
-        [profileTable insertRowsAtIndexPaths:<#(NSArray *)#> withRowAnimation:<#(UITableViewRowAnimation)#>]
+        /*[profileTable insertRowsAtIndexPaths:profiles withRowAnimation:UITableViewRowAnimationAutomatic];*/
+        
+        /*[profileTable insertRowsAtIndexPaths:<#(NSArray *)#> withRowAnimation:<#(UITableViewRowAnimation)#>]
         
         // Create a new BNRItem and add it to the store
         BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
@@ -42,7 +46,7 @@
         NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
         // Insert this new row into the table.
         [[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
-                                withRowAnimation:UITableViewRowAnimationTop];
+                                withRowAnimation:UITableViewRowAnimationTop];*/
     }
     return self;
 }
@@ -58,6 +62,64 @@
     
     [[self navigationController] pushViewController:playlistSelectViewController
                                            animated:YES];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[[ProfileItemStore sharedStore] allProfiles] count];
+}
+
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // If the table view is asking to commit a delete command...
+    /*if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        BNRItemStore *ps = [BNRItemStore sharedStore];
+        NSArray *items = [ps allItems];
+        BNRItem *p = [items objectAtIndex:[indexPath row]];
+        [ps removeItem:p];
+        // We also remove that row from the table view with an animation
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+    }*/
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    
+    if (!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+    }
+    
+    ProfileItem *p = [[[ProfileItemStore sharedStore] allProfiles] objectAtIndex:[indexPath row]];
+    
+    [[cell textLabel] setText:[p description]];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)aTableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /*DetailViewController *detailViewController = [[DetailViewController alloc] init];
+    
+    NSArray *items = [[BNRItemStore sharedStore] allItems];
+    BNRItem *selectedItem = [items objectAtIndex:[indexPath row]];
+    // Give detail view controller a pointer to the item object in row
+    [detailViewController setItem:selectedItem];
+    
+    [[self navigationController] pushViewController:detailViewController
+                                           animated:YES];*/
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [profileTable reloadData];
+    //[[self tableView] reloadData];
 }
 
 @end

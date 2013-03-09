@@ -20,6 +20,8 @@
 		2968B2F516E702F0009D884A /* ProfileSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B2F316E702F0009D884A /* ProfileSelectViewController.xib */; };
 		2968B2F916E715EB009D884A /* PlaylistSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B2F716E715EB009D884A /* PlaylistSelectViewController.m */; };
 		2968B2FA16E715EB009D884A /* PlaylistSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B2F816E715EB009D884A /* PlaylistSelectViewController.xib */; };
+		2968B2FF16E866E2009D884A /* ProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B2FE16E866E2009D884A /* ProfileItem.m */; };
+		2968B30216E86DE0009D884A /* ProfileItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B30116E86DE0009D884A /* ProfileItemStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,10 @@
 		2968B2F616E715EB009D884A /* PlaylistSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistSelectViewController.h; sourceTree = "<group>"; };
 		2968B2F716E715EB009D884A /* PlaylistSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistSelectViewController.m; sourceTree = "<group>"; };
 		2968B2F816E715EB009D884A /* PlaylistSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistSelectViewController.xib; sourceTree = "<group>"; };
+		2968B2FD16E866E2009D884A /* ProfileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileItem.h; sourceTree = "<group>"; };
+		2968B2FE16E866E2009D884A /* ProfileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileItem.m; sourceTree = "<group>"; };
+		2968B30016E86DE0009D884A /* ProfileItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileItemStore.h; sourceTree = "<group>"; };
+		2968B30116E86DE0009D884A /* ProfileItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileItemStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,15 +94,11 @@
 		2968B2DA16E70205009D884A /* InnerBeat */ = {
 			isa = PBXGroup;
 			children = (
+				2968B2FC16E8666C009D884A /* PlaylistSelect */,
 				2968B2E316E70205009D884A /* InnerBeatAppDelegate.h */,
 				2968B2E416E70205009D884A /* InnerBeatAppDelegate.m */,
-				2968B2F116E702F0009D884A /* ProfileSelectViewController.h */,
-				2968B2F216E702F0009D884A /* ProfileSelectViewController.m */,
-				2968B2F316E702F0009D884A /* ProfileSelectViewController.xib */,
+				2968B2FB16E86630009D884A /* ProfileSelect */,
 				2968B2DB16E70205009D884A /* Supporting Files */,
-				2968B2F616E715EB009D884A /* PlaylistSelectViewController.h */,
-				2968B2F716E715EB009D884A /* PlaylistSelectViewController.m */,
-				2968B2F816E715EB009D884A /* PlaylistSelectViewController.xib */,
 			);
 			path = InnerBeat;
 			sourceTree = "<group>";
@@ -113,6 +115,30 @@
 				2968B2EA16E70205009D884A /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2968B2FB16E86630009D884A /* ProfileSelect */ = {
+			isa = PBXGroup;
+			children = (
+				2968B2F116E702F0009D884A /* ProfileSelectViewController.h */,
+				2968B2F216E702F0009D884A /* ProfileSelectViewController.m */,
+				2968B2F316E702F0009D884A /* ProfileSelectViewController.xib */,
+				2968B2FD16E866E2009D884A /* ProfileItem.h */,
+				2968B2FE16E866E2009D884A /* ProfileItem.m */,
+				2968B30016E86DE0009D884A /* ProfileItemStore.h */,
+				2968B30116E86DE0009D884A /* ProfileItemStore.m */,
+			);
+			name = ProfileSelect;
+			sourceTree = "<group>";
+		};
+		2968B2FC16E8666C009D884A /* PlaylistSelect */ = {
+			isa = PBXGroup;
+			children = (
+				2968B2F816E715EB009D884A /* PlaylistSelectViewController.xib */,
+				2968B2F716E715EB009D884A /* PlaylistSelectViewController.m */,
+				2968B2F616E715EB009D884A /* PlaylistSelectViewController.h */,
+			);
+			name = PlaylistSelect;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +213,8 @@
 				2968B2E516E70205009D884A /* InnerBeatAppDelegate.m in Sources */,
 				2968B2F416E702F0009D884A /* ProfileSelectViewController.m in Sources */,
 				2968B2F916E715EB009D884A /* PlaylistSelectViewController.m in Sources */,
+				2968B2FF16E866E2009D884A /* ProfileItem.m in Sources */,
+				2968B30216E86DE0009D884A /* ProfileItemStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
