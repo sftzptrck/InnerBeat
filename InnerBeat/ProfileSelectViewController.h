@@ -12,6 +12,7 @@
 @interface ProfileSelectViewController : UIViewController
 {
     __weak IBOutlet UITableView *profileTable;
+    IBOutlet UITextView *profilePreview;
 }
 
 - (IBAction)selectProfileAndContinue:(id)sender;

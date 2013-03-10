@@ -22,6 +22,8 @@
 		2968B2FA16E715EB009D884A /* PlaylistSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B2F816E715EB009D884A /* PlaylistSelectViewController.xib */; };
 		2968B2FF16E866E2009D884A /* ProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B2FE16E866E2009D884A /* ProfileItem.m */; };
 		2968B30216E86DE0009D884A /* ProfileItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B30116E86DE0009D884A /* ProfileItemStore.m */; };
+		2968B30F16EC3E6B009D884A /* ProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B30D16EC3E6B009D884A /* ProfileEditViewController.m */; };
+		2968B31016EC3E6B009D884A /* ProfileEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B30E16EC3E6B009D884A /* ProfileEditViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,9 @@
 		2968B2FE16E866E2009D884A /* ProfileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileItem.m; sourceTree = "<group>"; };
 		2968B30016E86DE0009D884A /* ProfileItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileItemStore.h; sourceTree = "<group>"; };
 		2968B30116E86DE0009D884A /* ProfileItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileItemStore.m; sourceTree = "<group>"; };
+		2968B30C16EC3E6B009D884A /* ProfileEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileEditViewController.h; sourceTree = "<group>"; };
+		2968B30D16EC3E6B009D884A /* ProfileEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileEditViewController.m; sourceTree = "<group>"; };
+		2968B30E16EC3E6B009D884A /* ProfileEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileEditViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +99,7 @@
 		2968B2DA16E70205009D884A /* InnerBeat */ = {
 			isa = PBXGroup;
 			children = (
+				2968B30616EC3D93009D884A /* ProfileEdit */,
 				2968B2FC16E8666C009D884A /* PlaylistSelect */,
 				2968B2E316E70205009D884A /* InnerBeatAppDelegate.h */,
 				2968B2E416E70205009D884A /* InnerBeatAppDelegate.m */,
@@ -139,6 +145,16 @@
 				2968B2F616E715EB009D884A /* PlaylistSelectViewController.h */,
 			);
 			name = PlaylistSelect;
+			sourceTree = "<group>";
+		};
+		2968B30616EC3D93009D884A /* ProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				2968B30C16EC3E6B009D884A /* ProfileEditViewController.h */,
+				2968B30D16EC3E6B009D884A /* ProfileEditViewController.m */,
+				2968B30E16EC3E6B009D884A /* ProfileEditViewController.xib */,
+			);
+			name = ProfileEdit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +215,7 @@
 				2968B2EB16E70205009D884A /* Default-568h@2x.png in Resources */,
 				2968B2F516E702F0009D884A /* ProfileSelectViewController.xib in Resources */,
 				2968B2FA16E715EB009D884A /* PlaylistSelectViewController.xib in Resources */,
+				2968B31016EC3E6B009D884A /* ProfileEditViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +232,7 @@
 				2968B2F916E715EB009D884A /* PlaylistSelectViewController.m in Sources */,
 				2968B2FF16E866E2009D884A /* ProfileItem.m in Sources */,
 				2968B30216E86DE0009D884A /* ProfileItemStore.m in Sources */,
+				2968B30F16EC3E6B009D884A /* ProfileEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

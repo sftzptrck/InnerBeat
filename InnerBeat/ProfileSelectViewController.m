@@ -32,21 +32,6 @@
         //[[self navigationItem] setRightBarButtonItem:bbi];
         //[[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
         
-       // NSArray *profiles = [[ProfileItemStore sharedStore] allProfiles];
-        
-        /*[profileTable insertRowsAtIndexPaths:profiles withRowAnimation:UITableViewRowAnimationAutomatic];*/
-        
-        /*[profileTable insertRowsAtIndexPaths:<#(NSArray *)#> withRowAnimation:<#(UITableViewRowAnimation)#>]
-        
-        // Create a new BNRItem and add it to the store
-        BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
-        // Figure out where that item is in the array
-        int lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
-        
-        NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
-        // Insert this new row into the table.
-        [[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
-                                withRowAnimation:UITableViewRowAnimationTop];*/
     }
     return self;
 }
