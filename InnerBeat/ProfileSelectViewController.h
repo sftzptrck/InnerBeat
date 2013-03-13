@@ -13,8 +13,11 @@
 {
     __weak IBOutlet UITableView *profileTable;
     IBOutlet UITextView *profilePreview;
+    NSInteger selectedRow;
 }
 
 - (IBAction)selectProfileAndContinue:(id)sender;
+- (IBAction)newProfile:(id)sender;
+- (IBAction)editProfile:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ProfileSelectViewController.h"
+#import "ProfileEditViewController.h"
 #import "ProfileItemStore.h"
 
 @interface ProfileSelectViewController ()
@@ -21,6 +22,7 @@
     if (self){
         UINavigationItem *n = [self navigationItem];
         [n setTitle:@"Profiles"];
+        selectedRow = -1;
         
         // Create a new bar button item that will send
         // addNewItem: to ItemsViewController
@@ -47,6 +49,27 @@
     
     [[self navigationController] pushViewController:playlistSelectViewController
                                            animated:YES];
+}
+
+- (IBAction)newProfile:(id)sender
+{
+    ProfileEditViewController *profileEditViewController = [[ProfileEditViewController alloc] init];
+    
+    [[self navigationController] pushViewController:profileEditViewController animated:YES];
+}
+
+- (IBAction)editProfile:(id)sender
+{
+    ProfileEditViewController *profileEditViewController = [[ProfileEditViewController alloc] init];
+    
+    NSArray *items = [[ProfileItemStore sharedStore] allProfiles];
+    
+    ProfileItem *selectedItem = [items objectAtIndex:selectedRow];
+    
+    // Give detail view controller a pointer to the item object in row
+    [profileEditViewController setItem:selectedItem];
+    
+    [[self navigationController] pushViewController:profileEditViewController animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -89,22 +112,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)tableView:(UITableView *)aTableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*DetailViewController *detailViewController = [[DetailViewController alloc] init];
-    
-    NSArray *items = [[BNRItemStore sharedStore] allItems];
-    BNRItem *selectedItem = [items objectAtIndex:[indexPath row]];
-    // Give detail view controller a pointer to the item object in row
-    [detailViewController setItem:selectedItem];
-    
-    [[self navigationController] pushViewController:detailViewController
-                                           animated:YES];*/
+    selectedRow = [indexPath row];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [profileTable reloadData];
-    //[[self tableView] reloadData];
 }
 
 @end
