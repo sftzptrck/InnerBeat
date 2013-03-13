@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileItem.h"
 
 @interface PlaylistSelectViewController : UIViewController
-
+{
+    
+}
+@property (nonatomic, strong) ProfileItem *item;
 @end

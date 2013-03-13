@@ -18,4 +18,7 @@
     __weak IBOutlet UISlider *sensitivity;
 }
 @property (nonatomic, strong) ProfileItem *item;
+
+- (IBAction)saveProfile:(id)sender;
+
 @end

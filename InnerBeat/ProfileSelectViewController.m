@@ -23,32 +23,24 @@
         UINavigationItem *n = [self navigationItem];
         [n setTitle:@"Profiles"];
         selectedRow = -1;
-        
-        // Create a new bar button item that will send
-        // addNewItem: to ItemsViewController
-        /*UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
-                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                target:self
-                                action:@selector(addNewItem:)];*/
-        // Set this bar button item as the right item in the navigationItem
-        //[[self navigationItem] setRightBarButtonItem:bbi];
-        //[[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
-        
     }
     return self;
 }
 
 - (IBAction)selectProfileAndContinue:(id)sender
 {
-    PlaylistSelectViewController *playlistSelectViewController = [[PlaylistSelectViewController alloc] init];
-    
-    //NSArray *items = [[BNRItemStore sharedStore] allItems];
-    //BNRItem *selectedItem = [items objectAtIndex:[indexPath row]];
-    // Give detail view controller a pointer to the item object in row
-    //[detailViewController setItem:selectedItem];
-    
-    [[self navigationController] pushViewController:playlistSelectViewController
-                                           animated:YES];
+    if (selectedRow >= 0){
+        PlaylistSelectViewController *playlistSelectViewController = [[PlaylistSelectViewController alloc] init];
+        
+        NSArray *items = [[ProfileItemStore sharedStore] allProfiles];
+        
+        ProfileItem *selectedItem = [items objectAtIndex:selectedRow];
+        
+        // Give detail view controller a pointer to the item object in row
+        [playlistSelectViewController setItem:selectedItem];
+        
+        [[self navigationController] pushViewController:playlistSelectViewController animated:YES];
+    }
 }
 
 - (IBAction)newProfile:(id)sender
@@ -119,6 +111,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"it gets here");
     [super viewWillAppear:animated];
     [profileTable reloadData];
 }
