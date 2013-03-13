@@ -60,16 +60,18 @@
 
 - (IBAction)editProfile:(id)sender
 {
-    ProfileEditViewController *profileEditViewController = [[ProfileEditViewController alloc] init];
+    if (selectedRow >= 0){
+        ProfileEditViewController *profileEditViewController = [[ProfileEditViewController alloc] init];
     
-    NSArray *items = [[ProfileItemStore sharedStore] allProfiles];
+        NSArray *items = [[ProfileItemStore sharedStore] allProfiles];
     
-    ProfileItem *selectedItem = [items objectAtIndex:selectedRow];
+        ProfileItem *selectedItem = [items objectAtIndex:selectedRow];
     
-    // Give detail view controller a pointer to the item object in row
-    [profileEditViewController setItem:selectedItem];
+        // Give detail view controller a pointer to the item object in row
+        [profileEditViewController setItem:selectedItem];
     
-    [[self navigationController] pushViewController:profileEditViewController animated:YES];
+        [[self navigationController] pushViewController:profileEditViewController animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
