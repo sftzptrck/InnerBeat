@@ -27,6 +27,11 @@
     return self;
 }
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    return [self init];
+}
+
 - (IBAction)selectProfileAndContinue:(id)sender
 {
     if (selectedRow >= 0){
@@ -45,7 +50,11 @@
 
 - (IBAction)newProfile:(id)sender
 {
+    ProfileItem *newProfile = [[ProfileItem alloc] init];
+    
     ProfileEditViewController *profileEditViewController = [[ProfileEditViewController alloc] init];
+    
+    [profileEditViewController setItem:newProfile];
     
     [[self navigationController] pushViewController:profileEditViewController animated:YES];
 }
@@ -111,7 +120,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"it gets here");
     [super viewWillAppear:animated];
     [profileTable reloadData];
 }

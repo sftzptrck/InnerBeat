@@ -65,6 +65,13 @@
     return p;
 }
 
+- (int)addProfile:(ProfileItem *)profile
+{
+    [allProfiles addObject:profile];
+    
+    return [allProfiles count] - 1;
+}
+
 - (void)removeProfile:(ProfileItem *)p
 {
     [allProfiles removeObjectIdenticalTo:p];

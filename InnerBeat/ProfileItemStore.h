@@ -24,6 +24,7 @@
                 tempoAllowMinutes:(int)tempoAllowMinutes
                 tempoAllowSeconds:(int)tempoAllowSeconds
                 tempoSensitivity:(int)tempoSensitivity;
+- (int)addProfile:(ProfileItem *)profile;
 - (void)removeProfile:(ProfileItem *)p;
 
 @end

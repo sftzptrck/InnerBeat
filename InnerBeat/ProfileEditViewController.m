@@ -7,7 +7,6 @@
 //
 
 #import "ProfileEditViewController.h"
-#import "ProfileItem.h"
 
 @interface ProfileEditViewController ()
 
@@ -37,21 +36,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    // Clear first responder
     [[self view] endEditing:YES];
-    // "Save" changes to item
     [item setProfileName:[profileName text]];
-    
-    
-    /*NSArray *targetPaceComponents = [[targetPace text] componentsSeparatedByString: @":"];
-    
-    int tempMinutes = [(NSString*)[targetPaceComponents objectAtIndex:0] intValue];
-    int tempSeconds = [(NSString*)[targetPaceComponents objectAtIndex:1] intValue];
-    
-    [item setTargetPaceMinutes:tempMinutes];
-    [item setTargetPaceSeconds:tempSeconds];
-    [item setTempoAllowMinutes:[[minuteChangeDiff text] intValue]];
-    [item setTempoAllowSeconds:[[secondChangeDiff text] intValue]];*/
+
 }
 
 - (void)setItem:(ProfileItem *)i
@@ -64,20 +51,23 @@
 -(IBAction)saveProfile:(id)sender
 {
     [self viewWillDisappear:true];
-    // Clear first responder
-    //[[self view] endEditing:YES];
-    // "Save" changes to item
     
     [item setProfileName:[profileName text]];
     NSArray *targetPaceComponents = [[targetPace text] componentsSeparatedByString: @":"];
-     
+    
     int tempMinutes = [(NSString*)[targetPaceComponents objectAtIndex:0] intValue];
     int tempSeconds = [(NSString*)[targetPaceComponents objectAtIndex:1] intValue];
-     
+    
     [item setTargetPaceMinutes:tempMinutes];
     [item setTargetPaceSeconds:tempSeconds];
     [item setTempoAllowMinutes:[[minuteChangeDiff text] intValue]];
     [item setTempoAllowSeconds:[[secondChangeDiff text] intValue]];
+    
+    ProfileItemStore *profileStore = [ProfileItemStore sharedStore];
+    
+    if ([[profileStore allProfiles] indexOfObject:item] == NSNotFound){
+        [profileStore addProfile:item];
+    }
     
     [[self navigationController] popViewControllerAnimated:YES];
 }

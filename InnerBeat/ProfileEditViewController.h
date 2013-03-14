@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileItem.h"
+#import "ProfileItemStore.h"
 
 @interface ProfileEditViewController : UIViewController
 {
