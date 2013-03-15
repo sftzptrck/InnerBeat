@@ -37,7 +37,6 @@
 {
     [super viewWillDisappear:animated];
     [[self view] endEditing:YES];
-    [item setProfileName:[profileName text]];
 
 }
 
@@ -62,6 +61,7 @@
     [item setTargetPaceSeconds:tempSeconds];
     [item setTempoAllowMinutes:[[minuteChangeDiff text] intValue]];
     [item setTempoAllowSeconds:[[secondChangeDiff text] intValue]];
+    [item setTempoSensitivity:(int)[sensitivity value]];
     
     ProfileItemStore *profileStore = [ProfileItemStore sharedStore];
     
@@ -69,6 +69,11 @@
         [profileStore addProfile:item];
     }
     
+    [[self navigationController] popViewControllerAnimated:YES];
+}
+
+-(IBAction)cancelProfile:(id)sender
+{
     [[self navigationController] popViewControllerAnimated:YES];
 }
 

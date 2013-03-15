@@ -21,5 +21,6 @@
 @property (nonatomic, strong) ProfileItem *item;
 
 - (IBAction)saveProfile:(id)sender;
+- (IBAction)cancelProfile:(id)sender;
 
 @end

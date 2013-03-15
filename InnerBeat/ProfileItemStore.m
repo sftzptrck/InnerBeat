@@ -22,7 +22,7 @@
     if (self){
         allProfiles = [[NSMutableArray alloc] init];
     }
-    [self addProfile:@"Testing" targetPaceHours:4 targetPaceMinutes:30 targetPaceSeconds:30 tempoAllowMinutes:0 tempoAllowSeconds:15 tempoSensitivity:15];
+    /*[self addProfile:@"Testing" targetPaceHours:4 targetPaceMinutes:30 targetPaceSeconds:30 tempoAllowMinutes:0 tempoAllowSeconds:15 tempoSensitivity:15];
     
     [self addProfile:@"Testing2" targetPaceHours:4 targetPaceMinutes:30 targetPaceSeconds:30 tempoAllowMinutes:0 tempoAllowSeconds:15 tempoSensitivity:15];
     
@@ -36,7 +36,7 @@
     
     [self addProfile:@"Testing" targetPaceHours:4 targetPaceMinutes:30 targetPaceSeconds:30 tempoAllowMinutes:0 tempoAllowSeconds:15 tempoSensitivity:15];
     
-    [self addProfile:@"Testing2" targetPaceHours:4 targetPaceMinutes:30 targetPaceSeconds:30 tempoAllowMinutes:0 tempoAllowSeconds:15 tempoSensitivity:15];
+    [self addProfile:@"Testing2" targetPaceHours:4 targetPaceMinutes:30 targetPaceSeconds:30 tempoAllowMinutes:0 tempoAllowSeconds:15 tempoSensitivity:15];*/
     
     return self;
 }
