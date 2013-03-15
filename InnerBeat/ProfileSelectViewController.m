@@ -124,4 +124,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [profileTable reloadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    if (selectedRow >= 0){
+        NSIndexPath *path = [NSIndexPath indexPathForRow:selectedRow inSection:0];
+        [profileTable deselectRowAtIndexPath:path animated:NO];
+    }
+}
+
 @end
