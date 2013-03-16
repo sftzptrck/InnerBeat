@@ -37,12 +37,12 @@
     if (selectedRow >= 0){
         PlaylistSelectViewController *playlistSelectViewController = [[PlaylistSelectViewController alloc] init];
         
-        NSArray *items = [[ProfileItemStore sharedStore] allProfiles];
+        NSArray *profiles = [[ProfileItemStore sharedStore] allProfiles];
         
-        ProfileItem *selectedItem = [items objectAtIndex:selectedRow];
+        ProfileItem *selectedProfile = [profiles objectAtIndex:selectedRow];
         
         // Give detail view controller a pointer to the item object in row
-        [playlistSelectViewController setItem:selectedItem];
+        [playlistSelectViewController setProfile:selectedProfile];
         
         [[self navigationController] pushViewController:playlistSelectViewController animated:YES];
     }

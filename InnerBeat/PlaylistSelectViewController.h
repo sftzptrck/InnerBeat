@@ -11,7 +11,10 @@
 
 @interface PlaylistSelectViewController : UIViewController
 {
-    
+    __weak IBOutlet UITableView *playlistTable;
+    NSInteger selectedRow;
 }
-@property (nonatomic, strong) ProfileItem *item;
+@property (nonatomic, strong) ProfileItem *profile;
+
+- (IBAction)selectPlaylistAndContinue:(id)sender;
 @end
