@@ -24,7 +24,6 @@
     if (self){
         UINavigationItem *n = [self navigationItem];
         [n setTitle:@"Select Playlist"];
-        selectedRow = -1;
     }
     return self;
 }
@@ -37,25 +36,48 @@
 - (void)setProfile:(ProfileItem *)p
 {
     profile = p;
-    [[self navigationItem] setTitle:[profile profileName]];
     
+}
+
+- (IBAction)selectPlaylist:(id)sender
+{
+    MPMediaPickerController *mediaPicker = [[MPMediaPickerController alloc] init];
+    mediaPicker.delegate = self;
+    mediaPicker.allowsPickingMultipleItems = YES;
+    mediaPicker.prompt = @"Select songs to play";
+    [self presentViewController:mediaPicker animated:YES completion:nil];
+}
+
+- (void) mediaPicker: (MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
+{
+    if (mediaItemCollection){
+        playlistSelection = [mediaItemCollection items];
+        
+        for (MPMediaItem *m in playlistSelection){
+            NSString *temp = [m valueForProperty:MPMediaItemPropertyTitle];
+            NSLog(@"%@", temp);
+        }
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)selectPlaylistAndContinue:(id)sender
 {
-    if (selectedRow >= 0){
+    if ([playlistSelection count] > 0){
         RunningViewController *runningViewController = [[RunningViewController alloc] init];
         
-        NSArray *playlists = [[PlaylistItemStore sharedStore] allPlaylists];
-        
-        PlaylistItem *selectedPlaylist = [playlists objectAtIndex:selectedRow];
-        
         // Give detail view controller a pointer to the item object in row
-        [runningViewController setPlaylist:selectedPlaylist];
+        [runningViewController setPlaylist:playlistSelection];
         [runningViewController setProfile:profile];
         
         [[self navigationController] pushViewController:runningViewController animated:YES];
     }
+    
 }
 
 - (void)tableView:(UITableView *)aTableView

@@ -14,7 +14,7 @@
 {
     
 }
-@property (nonatomic, strong) PlaylistItem *playlist;
+@property (nonatomic, strong) NSArray *playlist;
 @property (nonatomic, strong) ProfileItem *profile;
 
 @end

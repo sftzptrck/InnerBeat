@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "ProfileItem.h"
 
-@interface PlaylistSelectViewController : UIViewController
+@interface PlaylistSelectViewController : UIViewController <MPMediaPickerControllerDelegate>
 {
     __weak IBOutlet UITableView *playlistTable;
     NSInteger selectedRow;
+    NSArray *playlistSelection;
+    
 }
 @property (nonatomic, strong) ProfileItem *profile;
 
 - (IBAction)selectPlaylistAndContinue:(id)sender;
+- (IBAction)selectPlaylist:(id)sender;
 @end

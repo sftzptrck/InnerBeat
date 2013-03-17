@@ -17,17 +17,40 @@
 @synthesize playlist;
 @synthesize profile;
 
-- (void)setPlaylist:(PlaylistItem *)p
+- (id)init
+{
+    self = [super init];
+    if (self){
+        UINavigationItem *n = [self navigationItem];
+        [n setTitle:@"Running Time"];
+    }
+    return self;
+}
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    return [self init];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
+
+- (void)setPlaylist:(NSArray *)p
 {
     playlist = p;
-    [[self navigationItem] setTitle:[playlist playlistName]];
     
 }
 
 - (void)setProfile:(ProfileItem *)p
 {
     profile = p;
-    [[self navigationItem] setTitle:[profile profileName]];
     
 }
 
