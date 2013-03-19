@@ -29,6 +29,8 @@
 		2968B31B16F43E00009D884A /* RunningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B31916F43E00009D884A /* RunningViewController.m */; };
 		2968B31C16F43E00009D884A /* RunningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B31A16F43E00009D884A /* RunningViewController.xib */; };
 		2968B31E16F56C68009D884A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31D16F56C68009D884A /* MediaPlayer.framework */; };
+		2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31F16F69BA6009D884A /* AVFoundation.framework */; };
+		2968B32216F6A1FA009D884A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B32116F6A1FA009D884A /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		2968B31916F43E00009D884A /* RunningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunningViewController.m; sourceTree = "<group>"; };
 		2968B31A16F43E00009D884A /* RunningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunningViewController.xib; sourceTree = "<group>"; };
 		2968B31D16F56C68009D884A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		2968B31F16F69BA6009D884A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2968B32116F6A1FA009D884A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2968B32216F6A1FA009D884A /* CoreLocation.framework in Frameworks */,
+				2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */,
 				2968B31E16F56C68009D884A /* MediaPlayer.framework in Frameworks */,
 				2968B2D516E70205009D884A /* UIKit.framework in Frameworks */,
 				2968B2D716E70205009D884A /* Foundation.framework in Frameworks */,
@@ -86,6 +92,8 @@
 		2968B2C816E70205009D884A = {
 			isa = PBXGroup;
 			children = (
+				2968B32116F6A1FA009D884A /* CoreLocation.framework */,
+				2968B31F16F69BA6009D884A /* AVFoundation.framework */,
 				2968B31D16F56C68009D884A /* MediaPlayer.framework */,
 				2968B2DA16E70205009D884A /* InnerBeat */,
 				2968B2D316E70205009D884A /* Frameworks */,

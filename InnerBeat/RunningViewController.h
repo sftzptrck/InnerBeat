@@ -7,11 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "PlaylistItem.h"
 #import "ProfileItem.h"
 
-@interface RunningViewController : UIViewController
+@interface RunningViewController : UIViewController <CLLocationManagerDelegate>
 {
+    IBOutlet UILabel *gpsField;
+    CLLocationManager *locationManager;
+    CLLocation *curLoc;
+    CLLocation *lastRecordedLocation;
+    CLLocationDistance totalDistance;
+    NSMutableArray *locationHistory;
+    NSDate *startTime;
+    NSTimeInterval lastDistanceCalculation;
     
 }
 @property (nonatomic, strong) NSArray *playlist;
