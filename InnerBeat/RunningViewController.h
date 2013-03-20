@@ -16,13 +16,16 @@
 @interface RunningViewController : UIViewController <CLLocationManagerDelegate>
 {
     IBOutlet UILabel *gpsField;
+    IBOutlet UILabel *timerField;
     CLLocationManager *locationManager;
     CLLocation *curLoc;
     CLLocation *lastRecordedLocation;
     CLLocationDistance totalDistance;
     NSMutableArray *locationHistory;
     NSDate *startTime;
+    NSTimer *timer;
     NSTimeInterval lastDistanceCalculation;
+    int timerCount;
     
 }
 @property (nonatomic, strong) NSArray *playlist;

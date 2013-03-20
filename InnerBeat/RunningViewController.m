@@ -32,16 +32,21 @@
         [n setTitle:@"Running Time"];
         
         startTime = [NSDate date];
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(increaseTimerCount) userInfo:nil repeats:YES];
+
         totalDistance = 0.0;
+        locationHistory = [NSMutableArray arrayWithCapacity:numLocationsToKeep];
         
         if ([CLLocationManager locationServicesEnabled]){
             locationManager = [[CLLocationManager alloc] init];
             [locationManager setDelegate:self];
             [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
             [locationManager setDistanceFilter:distanceToUpdateEventInMeters];
+            [locationManager startUpdatingLocation];
+            
+            lastDistanceCalculation = [NSDate timeIntervalSinceReferenceDate];
         }
         
-        locationHistory = [NSMutableArray arrayWithCapacity:numLocationsToKeep];
     }
     return self;
 }
@@ -55,9 +60,6 @@
 {
     [super viewWillAppear:animated];
     [self testSongLoad];
-    if ([CLLocationManager locationServicesEnabled]){
-        [locationManager startUpdatingLocation];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -80,6 +82,16 @@
     
 }
 
+- (void)increaseTimerCount
+{
+    timerCount++;
+    int seconds = timerCount % 60;
+    int minutes = (timerCount / 60) % 60;
+    int hours = timerCount / 3600;
+    
+    timerField.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
+}
+
 - (void)testSongLoad
 {
     MPMediaItem *m = [playlist objectAtIndex:0];
@@ -96,19 +108,10 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    if (oldLocation == nil){
-        return;
-    }
+    if (oldLocation == nil) return;
+    BOOL isStaleLocation = [oldLocation.timestamp compare:startTime] == NSOrderedAscending;
     
-    BOOL staleLocation;
-    
-    if ([[oldLocation timestamp] compare:startTime] == NSOrderedAscending){
-        staleLocation = TRUE;
-    } else {
-        staleLocation = FALSE;
-    }
-    
-    if (!staleLocation && newLocation.horizontalAccuracy >= 0.0f && newLocation.horizontalAccuracy < requiredHorizontalAccuracy) {
+    if (!isStaleLocation && newLocation.horizontalAccuracy >= 0.0f && newLocation.horizontalAccuracy < requiredHorizontalAccuracy) {
      
         [locationHistory addObject:newLocation];
         if ([locationHistory count] > numLocationsToKeep) {
@@ -139,8 +142,15 @@
             
             CLLocationDistance distance = [bestLocation distanceFromLocation:lastLocation];
             if (canUpdateDistance) {
-                totalDistance += distance;
-                [gpsField setText:[NSString stringWithFormat:@"%f", totalDistance]];
+                totalDistance = totalDistance + (distance*3.28084);
+                NSLog(@"Total:%f", totalDistance);
+                float miles = totalDistance/5280.0;
+                NSLog(@"MILES: %f", miles);
+                int fraction = ((int)roundf(miles * 100)) % 100;
+                NSLog(@"fraction: %d", fraction);
+                int whole = (int)roundf(miles);
+                NSLog(@"whole: %d", whole);
+                [gpsField setText:[NSString stringWithFormat:@"%02d:%02d", whole, fraction]];
             }
             lastRecordedLocation = bestLocation;
         }
@@ -152,6 +162,7 @@
 - (void)dealloc
 {
     [locationManager setDelegate:nil];
+    [timer invalidate];
 }
 
 @end
