@@ -150,7 +150,7 @@
                 NSLog(@"fraction: %d", fraction);
                 int whole = (int)roundf(miles);
                 NSLog(@"whole: %d", whole);
-                [gpsField setText:[NSString stringWithFormat:@"%02d:%02d", whole, fraction]];
+                [gpsField setText:[NSString stringWithFormat:@"%02d:%02d mi", whole, fraction]];
             }
             lastRecordedLocation = bestLocation;
         }
