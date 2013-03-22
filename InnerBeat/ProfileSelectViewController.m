@@ -116,6 +116,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedRow = [indexPath row];
+    ProfileItem *selectedProfile = [[[ProfileItemStore sharedStore] allProfiles] objectAtIndex:selectedRow];
+    [profilePreview setText:[NSString stringWithFormat:@"Name: %@\nTarget Pace: %02d:%02d min/mi\nTime Difference Before Change: %02d:%02d", selectedProfile.profileName, selectedProfile.targetPaceMinutes, selectedProfile.targetPaceSeconds, selectedProfile.tempoAllowMinutes, selectedProfile.tempoAllowSeconds]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -130,6 +132,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     if (selectedRow >= 0){
         NSIndexPath *path = [NSIndexPath indexPathForRow:selectedRow inSection:0];
         [profileTable deselectRowAtIndexPath:path animated:NO];
+        [profilePreview setText:@""];
     }
 }
 

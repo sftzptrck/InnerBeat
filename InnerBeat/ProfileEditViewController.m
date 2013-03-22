@@ -66,10 +66,7 @@
     if (tempMinutes == 0 && tempSeconds == 0){
         [errorMessage setText:@"Please provide a non-zero target pace."];
         return;
-    } else if (minuteChangeDiff < 0 || secondChangeDiff < 0){
-        [errorMessage setText:@"Time difference must be a non-negative integer"];
-        return;
-    }
+    } 
     
     [item setTargetPaceMinutes:tempMinutes];
     [item setTargetPaceSeconds:tempSeconds];
@@ -81,8 +78,19 @@
         [errorMessage setText:@"Second difference must be a non-negative integer."];
         return;
     }
+    
     int minChangeDiff = [[minuteChangeDiff text] intValue];
     int secChangeDiff = [[secondChangeDiff text] intValue];
+    
+    if (minChangeDiff < 0 || secChangeDiff < 0){
+        [errorMessage setText:@"Time difference must be a non-negative integer"];
+        return;
+    } else if (secChangeDiff >= 60){
+        [errorMessage setText:@"Seconds must be less than 60"];
+        return;
+    } else if (minChangeDiff >= 60){
+        [errorMessage setText:@"Minutes must be less than 60"];
+    }
     
     [item setTempoAllowMinutes:minChangeDiff];
     [item setTempoAllowSeconds:secChangeDiff];
