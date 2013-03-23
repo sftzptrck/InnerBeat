@@ -17,6 +17,9 @@
 {
     IBOutlet UILabel *gpsField;
     IBOutlet UILabel *timerField;
+    IBOutlet UILabel *targetPace;
+    IBOutlet UILabel *averagePace;
+    
     CLLocationManager *locationManager;
     CLLocation *curLoc;
     CLLocation *lastRecordedLocation;
@@ -30,5 +33,7 @@
 }
 @property (nonatomic, strong) NSArray *playlist;
 @property (nonatomic, strong) ProfileItem *profile;
+
+- (IBAction)pauseOrResume:(id)sender;
 
 @end

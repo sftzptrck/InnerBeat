@@ -90,6 +90,14 @@
     int hours = timerCount / 3600;
     
     timerField.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
+    
+    int totalMinutes = minutes + (hours*60);
+    float decAvgPace = (totalMinutes + (seconds/60.0))/(totalDistance/5280.0);
+    int minPace = (int) decAvgPace;
+    int secPace = (int) ((decAvgPace - minPace)*60);
+    
+    [averagePace setText:[NSString stringWithFormat:@"%02d:%02d", minPace, secPace]];
+    
 }
 
 - (void)testSongLoad
