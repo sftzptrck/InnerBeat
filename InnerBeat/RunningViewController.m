@@ -14,15 +14,16 @@
 
 @implementation RunningViewController
 
-#define distanceToUpdateEventInMeters 3
-#define numLocationsToKeep 5
-#define requiredHorizontalAccuracy 40.0f
-#define minLocationsToUpdateDistance 2
-#define secondsToCalculateDistance 10
-#define maxAgeOfLocations 3
+static const NSUInteger kDistanceFilter = 5; // The minimum distance (meters) for which we want to receive location updates
+static const NSUInteger kNumLocationHistoriesToKeep = 5; // The number of history locations to keep so we can look back at them and see what is the most accurate
+static const NSUInteger kNumSpeedHistoriesToAverage = 3; // The number of speeds to keep in history so we can average to get current speed
+static const CGFloat kRequiredHorizontalAccuracy = 15.0; // The required accuracy in meters for a location.
+static const NSUInteger kMinLocationsNeededToUpdateDistanceAndSpeed = 3; // The number of locations needed in history to update distance and speed
+static const NSUInteger kDistanceAndSpeedCalculationInterval = 3; // The interval (seconds) at which we calculate the user's distance and speed
+static const NSUInteger kValidLocationHistoryDeltaInterval = 3; // The maximum valid age in seconds of a location stored in the location history
+static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed and complete speed history will automatically be set to the new speed if the new speed is faster than the average speed
 
-@synthesize playlist;
-@synthesize profile;
+@synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer;
 
 - (id)init
 {
@@ -30,18 +31,19 @@
     if (self){
         UINavigationItem *n = [self navigationItem];
         [n setTitle:@"Running Time"];
-        
-        startTime = [NSDate date];
-        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(increaseTimerCount) userInfo:nil repeats:YES];
 
         totalDistance = 0.0;
-        locationHistory = [NSMutableArray arrayWithCapacity:numLocationsToKeep];
         
         if ([CLLocationManager locationServicesEnabled]){
             locationManager = [[CLLocationManager alloc] init];
             [locationManager setDelegate:self];
             [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-            [locationManager setDistanceFilter:distanceToUpdateEventInMeters];
+            [locationManager setDistanceFilter:kDistanceFilter];
+            
+            locationHistory = [NSMutableArray arrayWithCapacity:kNumLocationHistoriesToKeep];
+            speedHistory = [NSMutableArray arrayWithCapacity:kNumSpeedHistoriesToAverage];
+            [self resetLocationUpdates];
+            
             [locationManager startUpdatingLocation];
             
             lastDistanceCalculation = [NSDate timeIntervalSinceReferenceDate];
@@ -59,6 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [targetPace setText:[NSString stringWithFormat:@"%02d:%02d min/mi", profile.targetPaceMinutes, profile.targetPaceSeconds]];
     [self testSongLoad];
 }
 
@@ -98,6 +101,8 @@
     
     [averagePace setText:[NSString stringWithFormat:@"%02d:%02d", minPace, secPace]];
     
+    
+    [speedField setText:[NSString stringWithFormat:@"%.4f mi/h", currentSpeed]];
 }
 
 - (void)testSongLoad
@@ -119,27 +124,27 @@
     if (oldLocation == nil) return;
     BOOL isStaleLocation = [oldLocation.timestamp compare:startTime] == NSOrderedAscending;
     
-    if (!isStaleLocation && newLocation.horizontalAccuracy >= 0.0f && newLocation.horizontalAccuracy < requiredHorizontalAccuracy) {
+    if (!isStaleLocation && newLocation.horizontalAccuracy >= 0 && newLocation.horizontalAccuracy < kRequiredHorizontalAccuracy) {
      
         [locationHistory addObject:newLocation];
-        if ([locationHistory count] > numLocationsToKeep) {
+        if ([locationHistory count] > kNumLocationHistoriesToKeep) {
             [locationHistory removeObjectAtIndex:0];
         }
         
-        BOOL canUpdateDistance = NO;
-        if ([locationHistory count] >= minLocationsToUpdateDistance) {
-            canUpdateDistance = YES;
+        BOOL canUpdateDistanceAndSpeed = NO;
+        if ([locationHistory count] >= kMinLocationsNeededToUpdateDistanceAndSpeed) {
+            canUpdateDistanceAndSpeed = YES;
         }
         
-        if (([NSDate timeIntervalSinceReferenceDate] - lastDistanceCalculation) > secondsToCalculateDistance) {
+        if (([NSDate timeIntervalSinceReferenceDate] - lastDistanceCalculation) > kDistanceAndSpeedCalculationInterval) {
             lastDistanceCalculation = [NSDate timeIntervalSinceReferenceDate];
             
             CLLocation *lastLocation = (lastRecordedLocation != nil) ? lastRecordedLocation : oldLocation;
             
             CLLocation *bestLocation = nil;
-            CGFloat bestAccuracy = requiredHorizontalAccuracy;
+            CGFloat bestAccuracy = kRequiredHorizontalAccuracy;
             for (CLLocation *location in locationHistory) {
-                if ([NSDate timeIntervalSinceReferenceDate] - [location.timestamp timeIntervalSinceReferenceDate] <= maxAgeOfLocations) {
+                if ([NSDate timeIntervalSinceReferenceDate] - [location.timestamp timeIntervalSinceReferenceDate] <= kValidLocationHistoryDeltaInterval) {
                     if (location.horizontalAccuracy < bestAccuracy && location != lastLocation) {
                         bestAccuracy = location.horizontalAccuracy;
                         bestLocation = location;
@@ -149,7 +154,8 @@
             if (bestLocation == nil) bestLocation = newLocation;
             
             CLLocationDistance distance = [bestLocation distanceFromLocation:lastLocation];
-            if (canUpdateDistance) {
+            
+            if (canUpdateDistanceAndSpeed) {
                 totalDistance = totalDistance + (distance*3.28084);
                 NSLog(@"Total:%f", totalDistance);
                 float miles = totalDistance/5280.0;
@@ -161,10 +167,52 @@
                 [gpsField setText:[NSString stringWithFormat:@"%02d:%02d mi", whole, fraction]];
             }
             lastRecordedLocation = bestLocation;
+            
+            NSTimeInterval timeSinceLastLocation = [bestLocation.timestamp timeIntervalSinceDate:lastLocation.timestamp];
+            
+            if (timeSinceLastLocation > 0){
+                CGFloat speed = distance / timeSinceLastLocation;
+                if (speed <= 0 && [speedHistory count] == 0){
+                    
+                } else {
+                    [speedHistory addObject:[NSNumber numberWithDouble:speed]];
+                }
+                if ([speedHistory count] > kNumSpeedHistoriesToAverage){
+                    [speedHistory removeObjectAtIndex:0];
+                }
+                if ([speedHistory count] > 1){
+                    double totalSpeed = 0;
+                    for (NSNumber *speedNumber in speedHistory){
+                        totalSpeed += [speedNumber doubleValue];
+                    }
+                    if (canUpdateDistanceAndSpeed){
+                        double newSpeed = totalSpeed / (double)[speedHistory count];
+                        if (kPrioritizeFasterSpeeds > 0 && speed > newSpeed){
+                            newSpeed = speed;
+                            [speedHistory removeAllObjects];
+                            for (int i=0; i<kNumSpeedHistoriesToAverage; i++){
+                                [speedHistory addObject:[NSNumber numberWithDouble:newSpeed]];
+                            }
+                        }
+                        currentSpeed = newSpeed;
+                    }
+                }
+            }
         }
         
     }
     
+}
+
+- (IBAction)pauseOrResume:(id)sender
+{
+    
+}
+
+- (void)resetLocationUpdates
+{
+    startTime = [NSDate date];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(increaseTimerCount) userInfo:nil repeats:YES];
 }
 
 - (void)dealloc

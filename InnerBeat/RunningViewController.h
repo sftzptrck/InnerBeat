@@ -19,21 +19,24 @@
     IBOutlet UILabel *timerField;
     IBOutlet UILabel *targetPace;
     IBOutlet UILabel *averagePace;
+    IBOutlet UILabel *speedField;
     
-    CLLocationManager *locationManager;
-    CLLocation *curLoc;
-    CLLocation *lastRecordedLocation;
-    CLLocationDistance totalDistance;
-    NSMutableArray *locationHistory;
-    NSDate *startTime;
-    NSTimer *timer;
-    NSTimeInterval lastDistanceCalculation;
     int timerCount;
     
 }
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *lastRecordedLocation;
+@property (nonatomic) NSTimeInterval lastDistanceCalculation;
+@property (nonatomic, readonly) CLLocationDistance totalDistance;
+@property (nonatomic, readonly) double currentSpeed;
 @property (nonatomic, strong) NSArray *playlist;
 @property (nonatomic, strong) ProfileItem *profile;
+@property (nonatomic, strong) NSMutableArray *locationHistory;
+@property (nonatomic, strong) NSMutableArray *speedHistory;
+@property (nonatomic, strong) NSDate *startTime;
+@property (nonatomic, strong) NSTimer *timer;
 
 - (IBAction)pauseOrResume:(id)sender;
+- (void)resetLocationUpdates;
 
 @end

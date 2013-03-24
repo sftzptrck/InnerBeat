@@ -55,7 +55,6 @@
         
         for (MPMediaItem *m in playlistSelection){
             NSString *temp = [m valueForProperty:MPMediaItemPropertyTitle];
-            NSLog(@"%@", temp);
         }
     }
     [self dismissViewControllerAnimated:YES completion:nil];
