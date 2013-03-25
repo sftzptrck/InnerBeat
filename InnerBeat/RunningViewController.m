@@ -23,7 +23,7 @@ static const NSUInteger kDistanceAndSpeedCalculationInterval = 3; // The interva
 static const NSUInteger kValidLocationHistoryDeltaInterval = 3; // The maximum valid age in seconds of a location stored in the location history
 static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed and complete speed history will automatically be set to the new speed if the new speed is faster than the average speed
 
-@synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer;
+@synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer, isPaused, player, slider;
 
 - (id)init
 {
@@ -33,6 +33,7 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
         [n setTitle:@"Running Time"];
 
         totalDistance = 0.0;
+        isPaused = false;
         
         if ([CLLocationManager locationServicesEnabled]){
             locationManager = [[CLLocationManager alloc] init];
@@ -87,22 +88,23 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
 
 - (void)increaseTimerCount
 {
-    timerCount++;
-    int seconds = timerCount % 60;
-    int minutes = (timerCount / 60) % 60;
-    int hours = timerCount / 3600;
+    if (!isPaused){
+        timerCount++;
+        int seconds = timerCount % 60;
+        int minutes = (timerCount / 60) % 60;
+        int hours = timerCount / 3600;
     
-    timerField.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
+        timerField.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
     
-    int totalMinutes = minutes + (hours*60);
-    float decAvgPace = (totalMinutes + (seconds/60.0))/(totalDistance/5280.0);
-    int minPace = (int) decAvgPace;
-    int secPace = (int) ((decAvgPace - minPace)*60);
+        int totalMinutes = minutes + (hours*60);
+        float decAvgPace = (totalMinutes + (seconds/60.0))/(totalDistance/5280.0);
+        int minPace = (int) decAvgPace;
+        int secPace = (int) ((decAvgPace - minPace)*60);
     
-    [averagePace setText:[NSString stringWithFormat:@"%02d:%02d", minPace, secPace]];
+        [averagePace setText:[NSString stringWithFormat:@"%02d:%02d", minPace, secPace]];
     
-    
-    [speedField setText:[NSString stringWithFormat:@"%.4f mi/h", currentSpeed]];
+        [speedField setText:[NSString stringWithFormat:@"%.4f mi/h", currentSpeed]];
+    }
 }
 
 - (void)testSongLoad
@@ -110,8 +112,38 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
     MPMediaItem *m = [playlist objectAtIndex:0];
     NSURL* url = [m valueForProperty:MPMediaItemPropertyAssetURL];
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-    NSError * error = nil;
-    AVAssetReader * reader = [[AVAssetReader alloc] initWithAsset:asset error:&error];
+    
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    
+    AVAssetTrack *audioTrack = [[asset tracks] objectAtIndex:0];
+    AVMutableAudioMixInputParameters *inputParams = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
+    
+    MTAudioProcessingTapCallbacks callbacks;
+    callbacks.version = kMTAudioProcessingTapCallbacksVersion_0;
+    callbacks.clientInfo = (__bridge void *)(self);
+    callbacks.init = init;
+    callbacks.prepare = prepare;
+    callbacks.process = process;
+    callbacks.unprepare = unprepare;
+    callbacks.finalize = finalize;
+    
+    MTAudioProcessingTapRef tap;
+    OSStatus err = MTAudioProcessingTapCreate(kCFAllocatorDefault, &callbacks, kMTAudioProcessingTapCreationFlag_PostEffects, &tap);
+    
+    if (err || !tap){
+        NSLog(@"Unable to create the Audio Processing Tap");
+        return;
+    }
+    
+    inputParams.audioTapProcessor = tap;
+    
+    AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
+    audioMix.inputParameters = @[inputParams];
+    playerItem.audioMix = audioMix;
+    
+    self.player = [AVPlayer playerWithPlayerItem:playerItem];
+    
+    [self.player play];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -206,7 +238,16 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
 
 - (IBAction)pauseOrResume:(id)sender
 {
-    
+    if (!isPaused){
+        [locationManager stopUpdatingLocation];
+        //[self resetLocationUpdates];
+        self.view.backgroundColor = [UIColor grayColor];
+        isPaused = true;
+    } else{
+        [locationManager startUpdatingLocation];
+        self.view.backgroundColor = [UIColor whiteColor];
+        isPaused = false;
+    }
 }
 
 - (void)resetLocationUpdates
@@ -221,4 +262,44 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
     [timer invalidate];
 }
 
+void init(MTAudioProcessingTapRef Tap, void *clientInfo, void **tapStorageOut)
+{
+    NSLog(@"Initializing the Audio Tap Processor");
+    *tapStorageOut = clientInfo;
+}
+
+void finalize(MTAudioProcessingTapRef tap)
+{
+    NSLog(@"Finalizing the Audio Tap Processor");
+}
+
+void prepare(MTAudioProcessingTapRef tap, CMItemCount maxFrames, const AudioStreamBasicDescription *processingFormat)
+{
+    NSLog(@"Preparing the Audio Tap Processor");
+}
+
+void unprepare(MTAudioProcessingTapRef tap)
+{
+    NSLog(@"Unpreparing the Audio Tap Processor");
+}
+
+void process(MTAudioProcessingTapRef tap, CMItemCount numberFrames,
+             MTAudioProcessingTapFlags flags, AudioBufferList *bufferListInOut,
+             CMItemCount *numberFramesOut, MTAudioProcessingTapFlags *flagsOut)
+{
+    OSStatus err = MTAudioProcessingTapGetSourceAudio(tap, numberFrames, bufferListInOut,
+                                                      flagsOut, NULL, numberFramesOut);
+    if (err) NSLog(@"Error from GetSourceAudio: %ld", err);
+    
+    RunningViewController *self = (__bridge RunningViewController *) MTAudioProcessingTapGetStorage(tap);
+    
+    Float32 *bufA = bufferListInOut->mBuffers[0].mData;
+    Float32 *bufB = bufferListInOut->mBuffers[1].mData;
+    
+    
+    //float scalar = self.slider.value;
+    
+    //vDSP_vsmul(bufferListInOut->mBuffers[LAKE_RIGHT_CHANNEL].mData, 1, &scalar, bufferListInOut->mBuffers[LAKE_RIGHT_CHANNEL].mData, 1, bufferListInOut->mBuffers[LAKE_RIGHT_CHANNEL].mDataByteSize / sizeof(float));
+    //vDSP_vsmul(bufferListInOut->mBuffers[LAKE_LEFT_CHANNEL].mData, 1, &scalar, bufferListInOut->mBuffers[LAKE_LEFT_CHANNEL].mData, 1, bufferListInOut->mBuffers[LAKE_LEFT_CHANNEL].mDataByteSize / sizeof(float));
+}
 @end

@@ -29,8 +29,10 @@
 		2968B31B16F43E00009D884A /* RunningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B31916F43E00009D884A /* RunningViewController.m */; };
 		2968B31C16F43E00009D884A /* RunningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B31A16F43E00009D884A /* RunningViewController.xib */; };
 		2968B31E16F56C68009D884A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31D16F56C68009D884A /* MediaPlayer.framework */; };
-		2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31F16F69BA6009D884A /* AVFoundation.framework */; };
+		2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31F16F69BA6009D884A /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2968B32216F6A1FA009D884A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B32116F6A1FA009D884A /* CoreLocation.framework */; };
+		2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8216FFD99C00DF0CD8 /* Accelerate.framework */; };
+		2983AA8916FFF85C00DF0CD8 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,10 @@
 		2968B31D16F56C68009D884A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2968B31F16F69BA6009D884A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2968B32116F6A1FA009D884A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2983AA8216FFD99C00DF0CD8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		2983AA8416FFF5A700DF0CD8 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		2983AA8616FFF84B00DF0CD8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +83,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2968B32216F6A1FA009D884A /* CoreLocation.framework in Frameworks */,
+				2983AA8916FFF85C00DF0CD8 /* MediaToolbox.framework in Frameworks */,
 				2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */,
+				2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */,
+				2968B32216F6A1FA009D884A /* CoreLocation.framework in Frameworks */,
 				2968B31E16F56C68009D884A /* MediaPlayer.framework in Frameworks */,
 				2968B2D516E70205009D884A /* UIKit.framework in Frameworks */,
 				2968B2D716E70205009D884A /* Foundation.framework in Frameworks */,
@@ -92,6 +100,10 @@
 		2968B2C816E70205009D884A = {
 			isa = PBXGroup;
 			children = (
+				2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */,
+				2983AA8616FFF84B00DF0CD8 /* AssetsLibrary.framework */,
+				2983AA8416FFF5A700DF0CD8 /* CoreAudio.framework */,
+				2983AA8216FFD99C00DF0CD8 /* Accelerate.framework */,
 				2968B32116F6A1FA009D884A /* CoreLocation.framework */,
 				2968B31F16F69BA6009D884A /* AVFoundation.framework */,
 				2968B31D16F56C68009D884A /* MediaPlayer.framework */,
@@ -354,6 +366,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InnerBeat/InnerBeat-Prefix.pch";
 				INFOPLIST_FILE = "InnerBeat/InnerBeat-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -365,6 +378,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InnerBeat/InnerBeat-Prefix.pch";
 				INFOPLIST_FILE = "InnerBeat/InnerBeat-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -389,6 +403,7 @@
 				2968B2F016E70205009D884A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

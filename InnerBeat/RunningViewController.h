@@ -10,6 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Accelerate/Accelerate.h>
 #import "PlaylistItem.h"
 #import "ProfileItem.h"
 
@@ -24,6 +25,7 @@
     int timerCount;
     
 }
+@property (nonatomic) BOOL isPaused;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *lastRecordedLocation;
 @property (nonatomic) NSTimeInterval lastDistanceCalculation;
@@ -35,6 +37,8 @@
 @property (nonatomic, strong) NSMutableArray *speedHistory;
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) AVPlayer *player;
+@property (strong, nonatomic) IBOutlet UISlider *slider;
 
 - (IBAction)pauseOrResume:(id)sender;
 - (void)resetLocationUpdates;
