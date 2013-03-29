@@ -22,8 +22,12 @@ static const NSUInteger kMinLocationsNeededToUpdateDistanceAndSpeed = 3; // The 
 static const NSUInteger kDistanceAndSpeedCalculationInterval = 3; // The interval (seconds) at which we calculate the user's distance and speed
 static const NSUInteger kValidLocationHistoryDeltaInterval = 3; // The maximum valid age in seconds of a location stored in the location history
 static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed and complete speed history will automatically be set to the new speed if the new speed is faster than the average speed
+static const NSUInteger kPlusMinusMin = 30;
+static const CGFloat kSlowestSpeed = 2.0;
+static const CGFloat kFastestSpeed = 0.5;
 
 @synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer, isPaused, player, slider;
+
 
 - (id)init
 {
@@ -63,7 +67,37 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
 {
     [super viewWillAppear:animated];
     [targetPace setText:[NSString stringWithFormat:@"%02d:%02d min/mi", profile.targetPaceMinutes, profile.targetPaceSeconds]];
-    [self testSongLoad];
+    [self loadMusic];
+}
+
+- (void)loadMusic
+{
+    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeMusic];
+	
+	[picker setDelegate: self];
+	[picker setAllowsPickingMultipleItems: NO]; // YOU NEED TO SWITCH THIS TO MULTIPLE
+	picker.prompt = @"Choose song";
+	[self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void) mediaPicker:(MPMediaPickerController *)mediaPicker
+   didPickMediaItems:(MPMediaItemCollection *)collection
+{
+    MPMediaItem *mediaItem = [collection.items objectAtIndex:0];
+	NSURL *inUrl = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+    
+	NSLog(@"path = %@", inUrl);
+    
+	NSError *error = nil;
+    
+	mDiracAudioPlayer = [[DiracAudioPlayer alloc] initWithContentsOfURL:inUrl channels:1 error:&error];		// LE only supports 1 channel!
+	[mDiracAudioPlayer setDelegate:self];
+	[mDiracAudioPlayer setNumberOfLoops:1];
+	
+	[mDiracAudioPlayer play];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+	
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -102,48 +136,45 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
         int secPace = (int) ((decAvgPace - minPace)*60);
     
         [averagePace setText:[NSString stringWithFormat:@"%02d:%02d", minPace, secPace]];
+        
+        int minDiff = profile.targetPaceMinutes - minPace;
+        int secDiff = profile.targetPaceSeconds - secPace;
+        
+        float factor = 0.0;
+        // Running too fast - slow the music down
+        if ((minDiff > 0 || (minDiff == 0 && secDiff > 0)) && (minDiff > profile.tempoAllowMinutes || (minDiff == profile.tempoAllowMinutes && secDiff > profile.tempoAllowSeconds))){
+            
+            int totalSecs = (minDiff*60 + secDiff) - (profile.tempoAllowMinutes*60 + profile.tempoAllowSeconds);
+            
+            int plusMinusSecs = kPlusMinusMin*60;
+            
+            float normalize = totalSecs/plusMinusSecs;
+            
+            if (normalize > 1){
+                factor = kSlowestSpeed;
+            } else{
+                factor = normalize + 1.0;
+            }
+        } else if ((minDiff < 0 || (minDiff == 0 && secDiff < 0)) && (abs(minDiff) > profile.tempoAllowMinutes || (abs(minDiff) == profile.tempoAllowMinutes && abs(secDiff) > profile.tempoAllowSeconds))){ // Running too slow - speed up the music
+            int totalSecs = (abs(minDiff)*60 + abs(secDiff)) - (profile.tempoAllowMinutes*60 + profile.tempoAllowSeconds);
+            
+            int plusMinusSecs = kPlusMinusMin*60;
+            
+            float normalize = ((float)totalSecs)/plusMinusSecs;
+            if (normalize > 1){
+                factor = kFastestSpeed;
+            } else{
+                factor = normalize*(-kFastestSpeed)+1;
+            }
+            
+        } else { // Running just right
+            factor = 1;
+        }
+         
+        [mDiracAudioPlayer changeDuration:factor];
     
         [speedField setText:[NSString stringWithFormat:@"%.4f mi/h", currentSpeed]];
     }
-}
-
-- (void)testSongLoad
-{
-    MPMediaItem *m = [playlist objectAtIndex:0];
-    NSURL* url = [m valueForProperty:MPMediaItemPropertyAssetURL];
-    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-    
-    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
-    
-    AVAssetTrack *audioTrack = [[asset tracks] objectAtIndex:0];
-    AVMutableAudioMixInputParameters *inputParams = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
-    
-    MTAudioProcessingTapCallbacks callbacks;
-    callbacks.version = kMTAudioProcessingTapCallbacksVersion_0;
-    callbacks.clientInfo = (__bridge void *)(self);
-    callbacks.init = init;
-    callbacks.prepare = prepare;
-    callbacks.process = process;
-    callbacks.unprepare = unprepare;
-    callbacks.finalize = finalize;
-    
-    MTAudioProcessingTapRef tap;
-    OSStatus err = MTAudioProcessingTapCreate(kCFAllocatorDefault, &callbacks, kMTAudioProcessingTapCreationFlag_PostEffects, &tap);
-    
-    if (err || !tap){
-        NSLog(@"Unable to create the Audio Processing Tap");
-        return;
-    }
-    
-    inputParams.audioTapProcessor = tap;
-    
-    AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
-    audioMix.inputParameters = @[inputParams];
-    playerItem.audioMix = audioMix;
-    
-    self.player = [AVPlayer playerWithPlayerItem:playerItem];
-    
-    [self.player play];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -240,11 +271,13 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
 {
     if (!isPaused){
         [locationManager stopUpdatingLocation];
+        [mDiracAudioPlayer pause];
         //[self resetLocationUpdates];
         self.view.backgroundColor = [UIColor grayColor];
         isPaused = true;
     } else{
         [locationManager startUpdatingLocation];
+        [mDiracAudioPlayer play];
         self.view.backgroundColor = [UIColor whiteColor];
         isPaused = false;
     }
@@ -262,44 +295,11 @@ static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed
     [timer invalidate];
 }
 
-void init(MTAudioProcessingTapRef Tap, void *clientInfo, void **tapStorageOut)
+
+- (void) mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
 {
-    NSLog(@"Initializing the Audio Tap Processor");
-    *tapStorageOut = clientInfo;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-void finalize(MTAudioProcessingTapRef tap)
-{
-    NSLog(@"Finalizing the Audio Tap Processor");
-}
 
-void prepare(MTAudioProcessingTapRef tap, CMItemCount maxFrames, const AudioStreamBasicDescription *processingFormat)
-{
-    NSLog(@"Preparing the Audio Tap Processor");
-}
-
-void unprepare(MTAudioProcessingTapRef tap)
-{
-    NSLog(@"Unpreparing the Audio Tap Processor");
-}
-
-void process(MTAudioProcessingTapRef tap, CMItemCount numberFrames,
-             MTAudioProcessingTapFlags flags, AudioBufferList *bufferListInOut,
-             CMItemCount *numberFramesOut, MTAudioProcessingTapFlags *flagsOut)
-{
-    OSStatus err = MTAudioProcessingTapGetSourceAudio(tap, numberFrames, bufferListInOut,
-                                                      flagsOut, NULL, numberFramesOut);
-    if (err) NSLog(@"Error from GetSourceAudio: %ld", err);
-    
-    RunningViewController *self = (__bridge RunningViewController *) MTAudioProcessingTapGetStorage(tap);
-    
-    Float32 *bufA = bufferListInOut->mBuffers[0].mData;
-    Float32 *bufB = bufferListInOut->mBuffers[1].mData;
-    
-    
-    //float scalar = self.slider.value;
-    
-    //vDSP_vsmul(bufferListInOut->mBuffers[LAKE_RIGHT_CHANNEL].mData, 1, &scalar, bufferListInOut->mBuffers[LAKE_RIGHT_CHANNEL].mData, 1, bufferListInOut->mBuffers[LAKE_RIGHT_CHANNEL].mDataByteSize / sizeof(float));
-    //vDSP_vsmul(bufferListInOut->mBuffers[LAKE_LEFT_CHANNEL].mData, 1, &scalar, bufferListInOut->mBuffers[LAKE_LEFT_CHANNEL].mData, 1, bufferListInOut->mBuffers[LAKE_LEFT_CHANNEL].mDataByteSize / sizeof(float));
-}
 @end

@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290B6BBC1704098300EF6554 /* libDIRAC_iOS-fat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 290B6BBB1704098300EF6554 /* libDIRAC_iOS-fat.a */; };
+		290B6BC21705275300EF6554 /* libDIRAC_iOS4-fat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 290B6BC11705275300EF6554 /* libDIRAC_iOS4-fat.a */; };
+		290B6BC417052C5900EF6554 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290B6BC317052C5900EF6554 /* AudioToolbox.framework */; };
+		290B6BC617052C7000EF6554 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290B6BC517052C7000EF6554 /* CoreMedia.framework */; };
+		290B6BC917052CCD00EF6554 /* DiracAudioPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 290B6BC817052CCD00EF6554 /* DiracAudioPlayer.mm */; };
+		290B6BCC17052D0100EF6554 /* DiracAudioPlayerBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 290B6BCB17052D0100EF6554 /* DiracAudioPlayerBase.mm */; };
+		290B6BCF17052D2C00EF6554 /* DiracFxAudioPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 290B6BCE17052D2B00EF6554 /* DiracFxAudioPlayer.mm */; };
+		290B6BD217052DE600EF6554 /* Utilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 290B6BD117052DE600EF6554 /* Utilities.mm */; };
+		290B6BD617052E7B00EF6554 /* EAFRead.mm in Sources */ = {isa = PBXBuildFile; fileRef = 290B6BD517052E7B00EF6554 /* EAFRead.mm */; };
+		290B6BD917052EB300EF6554 /* EAFWrite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 290B6BD817052EB300EF6554 /* EAFWrite.mm */; };
 		2968B2D516E70205009D884A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B2D416E70205009D884A /* UIKit.framework */; };
 		2968B2D716E70205009D884A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B2D616E70205009D884A /* Foundation.framework */; };
 		2968B2D916E70205009D884A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B2D816E70205009D884A /* CoreGraphics.framework */; };
@@ -26,7 +36,7 @@
 		2968B31016EC3E6B009D884A /* ProfileEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B30E16EC3E6B009D884A /* ProfileEditViewController.xib */; };
 		2968B31316F2DBB6009D884A /* PlaylistItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B31216F2DBB6009D884A /* PlaylistItem.m */; };
 		2968B31616F2E32E009D884A /* PlaylistItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B31516F2E32E009D884A /* PlaylistItemStore.m */; };
-		2968B31B16F43E00009D884A /* RunningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968B31916F43E00009D884A /* RunningViewController.m */; };
+		2968B31B16F43E00009D884A /* RunningViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2968B31916F43E00009D884A /* RunningViewController.mm */; };
 		2968B31C16F43E00009D884A /* RunningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2968B31A16F43E00009D884A /* RunningViewController.xib */; };
 		2968B31E16F56C68009D884A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31D16F56C68009D884A /* MediaPlayer.framework */; };
 		2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2968B31F16F69BA6009D884A /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -34,11 +44,26 @@
 		2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8216FFD99C00DF0CD8 /* Accelerate.framework */; };
 		2983AA8916FFF85C00DF0CD8 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */; };
 		2983AA8B1700170900DF0CD8 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8A1700170900DF0CD8 /* libstdc++.dylib */; };
-		2983AA8D170017A800DF0CD8 /* SoundTouch in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8C170017A800DF0CD8 /* SoundTouch */; };
-		2983AA9817001B7C00DF0CD8 /* SoundTouchRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2983AA9717001B7C00DF0CD8 /* SoundTouchRef.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		290B6BBB1704098300EF6554 /* libDIRAC_iOS-fat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libDIRAC_iOS-fat.a"; path = "../../../Downloads/--DIRAC3LE--/Dirac3-Mobile/Common Files/src/libDIRAC_iOS-fat.a"; sourceTree = "<group>"; };
+		290B6BBD170409F700EF6554 /* Dirac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dirac.h; path = "../../../../../Downloads/--DIRAC3LE--/Dirac3-Mobile/Common Files/src/Dirac.h"; sourceTree = "<group>"; };
+		290B6BC11705275300EF6554 /* libDIRAC_iOS4-fat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libDIRAC_iOS4-fat.a"; path = "../../../Downloads/--DIRAC3LE--/Dirac3-Mobile/Common Files/src/libDIRAC_iOS4-fat.a"; sourceTree = "<group>"; };
+		290B6BC317052C5900EF6554 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		290B6BC517052C7000EF6554 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		290B6BC717052CB900EF6554 /* DiracAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiracAudioPlayer.h; path = DiracAudioPlayer/DiracAudioPlayer.h; sourceTree = "<group>"; };
+		290B6BC817052CCD00EF6554 /* DiracAudioPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DiracAudioPlayer.mm; path = DiracAudioPlayer/DiracAudioPlayer.mm; sourceTree = "<group>"; };
+		290B6BCA17052CE600EF6554 /* DiracAudioPlayerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiracAudioPlayerBase.h; path = DiracAudioPlayer/DiracAudioPlayerBase.h; sourceTree = "<group>"; };
+		290B6BCB17052D0100EF6554 /* DiracAudioPlayerBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DiracAudioPlayerBase.mm; path = DiracAudioPlayer/DiracAudioPlayerBase.mm; sourceTree = "<group>"; };
+		290B6BCD17052D1700EF6554 /* DiracFxAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiracFxAudioPlayer.h; path = DiracAudioPlayer/DiracFxAudioPlayer.h; sourceTree = "<group>"; };
+		290B6BCE17052D2B00EF6554 /* DiracFxAudioPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DiracFxAudioPlayer.mm; path = DiracAudioPlayer/DiracFxAudioPlayer.mm; sourceTree = "<group>"; };
+		290B6BD017052DBF00EF6554 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = DiracAudioPlayer/Utilities.h; sourceTree = "<group>"; };
+		290B6BD117052DE600EF6554 /* Utilities.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Utilities.mm; path = DiracAudioPlayer/Utilities.mm; sourceTree = "<group>"; };
+		290B6BD417052E5500EF6554 /* EAFRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAFRead.h; path = ExtAudioFile/EAFRead.h; sourceTree = "<group>"; };
+		290B6BD517052E7B00EF6554 /* EAFRead.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAFRead.mm; path = ExtAudioFile/EAFRead.mm; sourceTree = "<group>"; };
+		290B6BD717052E9700EF6554 /* EAFWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAFWrite.h; path = ExtAudioFile/EAFWrite.h; sourceTree = "<group>"; };
+		290B6BD817052EB300EF6554 /* EAFWrite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAFWrite.mm; path = ExtAudioFile/EAFWrite.mm; sourceTree = "<group>"; };
 		2968B2D116E70205009D884A /* InnerBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InnerBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2968B2D416E70205009D884A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2968B2D616E70205009D884A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,7 +95,7 @@
 		2968B31416F2E075009D884A /* PlaylistItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistItemStore.h; sourceTree = "<group>"; };
 		2968B31516F2E32E009D884A /* PlaylistItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistItemStore.m; sourceTree = "<group>"; };
 		2968B31816F43E00009D884A /* RunningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunningViewController.h; sourceTree = "<group>"; };
-		2968B31916F43E00009D884A /* RunningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunningViewController.m; sourceTree = "<group>"; };
+		2968B31916F43E00009D884A /* RunningViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RunningViewController.mm; sourceTree = "<group>"; };
 		2968B31A16F43E00009D884A /* RunningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunningViewController.xib; sourceTree = "<group>"; };
 		2968B31D16F56C68009D884A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2968B31F16F69BA6009D884A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -80,15 +105,6 @@
 		2983AA8616FFF84B00DF0CD8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		2983AA8A1700170900DF0CD8 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		2983AA8C170017A800DF0CD8 /* SoundTouch */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = SoundTouch; path = "../../../FBAudio-master/FBAudioLib/SoundTouch.framework/SoundTouch"; sourceTree = "<group>"; };
-		2983AA91170019F000DF0CD8 /* SoundTouchRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTouchRef.h; sourceTree = "<group>"; };
-		2983AA9717001B7C00DF0CD8 /* SoundTouchRef.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundTouchRef.mm; sourceTree = "<group>"; };
-		2983AA9A17001DBF00DF0CD8 /* BPMDetect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPMDetect.h; sourceTree = "<group>"; };
-		2983AA9B17001DBF00DF0CD8 /* FIFOSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFOSampleBuffer.h; sourceTree = "<group>"; };
-		2983AA9C17001DBF00DF0CD8 /* FIFOSamplePipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFOSamplePipe.h; sourceTree = "<group>"; };
-		2983AA9D17001DBF00DF0CD8 /* SoundTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTouch.h; sourceTree = "<group>"; };
-		2983AA9E17001DBF00DF0CD8 /* soundtouch_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundtouch_config.h; sourceTree = "<group>"; };
-		2983AA9F17001DBF00DF0CD8 /* STTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,11 +112,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2983AA8D170017A800DF0CD8 /* SoundTouch in Frameworks */,
+				290B6BC617052C7000EF6554 /* CoreMedia.framework in Frameworks */,
+				290B6BC417052C5900EF6554 /* AudioToolbox.framework in Frameworks */,
+				2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */,
+				290B6BC21705275300EF6554 /* libDIRAC_iOS4-fat.a in Frameworks */,
+				290B6BBC1704098300EF6554 /* libDIRAC_iOS-fat.a in Frameworks */,
 				2983AA8B1700170900DF0CD8 /* libstdc++.dylib in Frameworks */,
 				2983AA8916FFF85C00DF0CD8 /* MediaToolbox.framework in Frameworks */,
 				2968B32016F69BA6009D884A /* AVFoundation.framework in Frameworks */,
-				2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */,
 				2968B32216F6A1FA009D884A /* CoreLocation.framework in Frameworks */,
 				2968B31E16F56C68009D884A /* MediaPlayer.framework in Frameworks */,
 				2968B2D516E70205009D884A /* UIKit.framework in Frameworks */,
@@ -112,9 +131,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		290B6BBA1704091700EF6554 /* DiracAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				290B6BC717052CB900EF6554 /* DiracAudioPlayer.h */,
+				290B6BC817052CCD00EF6554 /* DiracAudioPlayer.mm */,
+				290B6BCA17052CE600EF6554 /* DiracAudioPlayerBase.h */,
+				290B6BCB17052D0100EF6554 /* DiracAudioPlayerBase.mm */,
+				290B6BCD17052D1700EF6554 /* DiracFxAudioPlayer.h */,
+				290B6BCE17052D2B00EF6554 /* DiracFxAudioPlayer.mm */,
+				290B6BD017052DBF00EF6554 /* Utilities.h */,
+				290B6BD117052DE600EF6554 /* Utilities.mm */,
+			);
+			name = DiracAudioPlayer;
+			sourceTree = "<group>";
+		};
+		290B6BD317052E1600EF6554 /* ExtAudioFile */ = {
+			isa = PBXGroup;
+			children = (
+				290B6BD417052E5500EF6554 /* EAFRead.h */,
+				290B6BD517052E7B00EF6554 /* EAFRead.mm */,
+				290B6BD717052E9700EF6554 /* EAFWrite.h */,
+				290B6BD817052EB300EF6554 /* EAFWrite.mm */,
+			);
+			name = ExtAudioFile;
+			sourceTree = "<group>";
+		};
 		2968B2C816E70205009D884A = {
 			isa = PBXGroup;
 			children = (
+				290B6BC517052C7000EF6554 /* CoreMedia.framework */,
+				290B6BC317052C5900EF6554 /* AudioToolbox.framework */,
+				290B6BC11705275300EF6554 /* libDIRAC_iOS4-fat.a */,
+				290B6BBB1704098300EF6554 /* libDIRAC_iOS-fat.a */,
 				2983AA8A1700170900DF0CD8 /* libstdc++.dylib */,
 				2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */,
 				2983AA8616FFF84B00DF0CD8 /* AssetsLibrary.framework */,
@@ -150,7 +199,8 @@
 		2968B2DA16E70205009D884A /* InnerBeat */ = {
 			isa = PBXGroup;
 			children = (
-				2983AA8E1700187200DF0CD8 /* SoundTouch */,
+				290B6BD317052E1600EF6554 /* ExtAudioFile */,
+				290B6BBA1704091700EF6554 /* DiracAudioPlayer */,
 				2968B31716F43D94009D884A /* RunningScreen */,
 				2968B30616EC3D93009D884A /* ProfileEdit */,
 				2968B2FC16E8666C009D884A /* PlaylistSelect */,
@@ -166,7 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				2983AA9917001DBF00DF0CD8 /* Headers */,
-				2983AA8C170017A800DF0CD8 /* SoundTouch */,
 				2968B2DC16E70205009D884A /* InnerBeat-Info.plist */,
 				2968B2DD16E70205009D884A /* InfoPlist.strings */,
 				2968B2E016E70205009D884A /* main.m */,
@@ -220,30 +269,16 @@
 			isa = PBXGroup;
 			children = (
 				2968B31816F43E00009D884A /* RunningViewController.h */,
-				2968B31916F43E00009D884A /* RunningViewController.m */,
+				2968B31916F43E00009D884A /* RunningViewController.mm */,
 				2968B31A16F43E00009D884A /* RunningViewController.xib */,
 			);
 			name = RunningScreen;
 			sourceTree = "<group>";
 		};
-		2983AA8E1700187200DF0CD8 /* SoundTouch */ = {
-			isa = PBXGroup;
-			children = (
-				2983AA9717001B7C00DF0CD8 /* SoundTouchRef.mm */,
-				2983AA91170019F000DF0CD8 /* SoundTouchRef.h */,
-			);
-			name = SoundTouch;
-			sourceTree = "<group>";
-		};
 		2983AA9917001DBF00DF0CD8 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				2983AA9A17001DBF00DF0CD8 /* BPMDetect.h */,
-				2983AA9B17001DBF00DF0CD8 /* FIFOSampleBuffer.h */,
-				2983AA9C17001DBF00DF0CD8 /* FIFOSamplePipe.h */,
-				2983AA9D17001DBF00DF0CD8 /* SoundTouch.h */,
-				2983AA9E17001DBF00DF0CD8 /* soundtouch_config.h */,
-				2983AA9F17001DBF00DF0CD8 /* STTypes.h */,
+				290B6BBD170409F700EF6554 /* Dirac.h */,
 			);
 			name = Headers;
 			path = "../../../FBAudio-master/FBAudioLib/SoundTouch.framework/Headers";
@@ -328,8 +363,13 @@
 				2968B30F16EC3E6B009D884A /* ProfileEditViewController.m in Sources */,
 				2968B31316F2DBB6009D884A /* PlaylistItem.m in Sources */,
 				2968B31616F2E32E009D884A /* PlaylistItemStore.m in Sources */,
-				2968B31B16F43E00009D884A /* RunningViewController.m in Sources */,
-				2983AA9817001B7C00DF0CD8 /* SoundTouchRef.mm in Sources */,
+				2968B31B16F43E00009D884A /* RunningViewController.mm in Sources */,
+				290B6BC917052CCD00EF6554 /* DiracAudioPlayer.mm in Sources */,
+				290B6BCC17052D0100EF6554 /* DiracAudioPlayerBase.mm in Sources */,
+				290B6BCF17052D2C00EF6554 /* DiracFxAudioPlayer.mm in Sources */,
+				290B6BD217052DE600EF6554 /* Utilities.mm in Sources */,
+				290B6BD617052E7B00EF6554 /* EAFRead.mm in Sources */,
+				290B6BD917052EB300EF6554 /* EAFWrite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +452,10 @@
 				GCC_PREFIX_HEADER = "InnerBeat/InnerBeat-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "InnerBeat/InnerBeat-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Downloads/--DIRAC3LE--/Dirac3-Mobile/Common Files/src\"",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -427,6 +471,10 @@
 				GCC_PREFIX_HEADER = "InnerBeat/InnerBeat-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "InnerBeat/InnerBeat-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Downloads/--DIRAC3LE--/Dirac3-Mobile/Common Files/src\"",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

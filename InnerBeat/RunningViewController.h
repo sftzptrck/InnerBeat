@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
+#import "DiracAudioPlayer.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Accelerate/Accelerate.h>
 #import "PlaylistItem.h"
 #import "ProfileItem.h"
 
-@interface RunningViewController : UIViewController <CLLocationManagerDelegate>
+@interface RunningViewController : UIViewController <CLLocationManagerDelegate,MPMediaPickerControllerDelegate>
 {
     IBOutlet UILabel *gpsField;
     IBOutlet UILabel *timerField;
@@ -23,6 +24,13 @@
     IBOutlet UILabel *speedField;
     
     int timerCount;
+    
+    DiracAudioPlayer *mDiracAudioPlayer;
+	
+	MPMediaPickerController *mPicker;
+    MPMusicPlayerController *mPlayer;
+    MPMediaQuery *mQuery;
+    MPMediaPredicate *mPredicate;
     
 }
 @property (nonatomic) BOOL isPaused;

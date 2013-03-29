@@ -20,7 +20,7 @@
         [self setTargetPaceHours:tPaceHours];
         [self setTargetPaceMinutes:tPaceMinutes];
         [self setTargetPaceSeconds:tPaceSeconds];
-        [self setTempoAllowMinutes:tPaceMinutes];
+        [self setTempoAllowMinutes:tAllowMinutes];
         [self setTempoAllowSeconds:tAllowSeconds];
         [self setTempoSensitivity:tSensitivity];
     }

@@ -21,6 +21,7 @@
     self = [super init];
     if (self){
         allProfiles = [[NSMutableArray alloc] init];
+        [self addProfile:@"Default" targetPaceHours:0 targetPaceMinutes:90 targetPaceSeconds:0 tempoAllowMinutes:5 tempoAllowSeconds:0 tempoSensitivity:50];
     }
     
     return self;
