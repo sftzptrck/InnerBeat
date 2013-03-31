@@ -74,19 +74,9 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
 
 - (void)loadMusic
 {
-    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeMusic];
-	
-	[picker setDelegate: self];
-	[picker setAllowsPickingMultipleItems: NO]; // YOU NEED TO SWITCH THIS TO MULTIPLE
-	picker.prompt = @"Choose song";
-	[self presentViewController:picker animated:YES completion:nil];
-}
-
-- (void) mediaPicker:(MPMediaPickerController *)mediaPicker
-   didPickMediaItems:(MPMediaItemCollection *)collection
-{
-    MPMediaItem *mediaItem = [collection.items objectAtIndex:0];
-	NSURL *inUrl = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+    MPMediaItem *mediaItem = [playlist objectAtIndex:0];
+    
+    NSURL *inUrl = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
     
 	NSLog(@"path = %@", inUrl);
     
@@ -97,9 +87,6 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
 	[mDiracAudioPlayer setNumberOfLoops:1];
 	
 	[mDiracAudioPlayer play];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-	
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -231,13 +218,9 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
             
             if (canUpdateDistanceAndSpeed) {
                 totalDistance = totalDistance + (distance*3.28084);
-                NSLog(@"Total:%f", totalDistance);
                 float miles = totalDistance/5280.0;
-                NSLog(@"MILES: %f", miles);
                 int fraction = ((int)roundf(miles * 100)) % 100;
-                NSLog(@"fraction: %d", fraction);
                 int whole = (int)roundf(miles);
-                NSLog(@"whole: %d", whole);
                 [gpsField setText:[NSString stringWithFormat:@"%02d:%02d mi", whole, fraction]];
             }
             lastRecordedLocation = bestLocation;
