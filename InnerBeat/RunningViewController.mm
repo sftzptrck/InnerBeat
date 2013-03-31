@@ -22,9 +22,11 @@ static const NSUInteger kMinLocationsNeededToUpdateDistanceAndSpeed = 3; // The 
 static const NSUInteger kDistanceAndSpeedCalculationInterval = 3; // The interval (seconds) at which we calculate the user's distance and speed
 static const NSUInteger kValidLocationHistoryDeltaInterval = 3; // The maximum valid age in seconds of a location stored in the location history
 static const NSUInteger kPrioritizeFasterSpeeds = 1; // if > 0, the currentSpeed and complete speed history will automatically be set to the new speed if the new speed is faster than the average speed
-static const NSUInteger kPlusMinusMin = 30;
-static const CGFloat kSlowestSpeed = 2.0;
-static const CGFloat kFastestSpeed = 0.5;
+static const NSUInteger kDefaultSensitivityNormalizer = 10; // Music will adjust if pace is slower or faster than this number of minutes
+static const NSUInteger kMaximumSensitivityNormalizer = 1;
+static const NSUInteger kMinimumSensitivityNormalizer = 20;
+static const CGFloat kSlowestTempo = 2.0; // The slowest the music tempo will go
+static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
 
 @synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer, isPaused, player, slider;
 
@@ -140,31 +142,40 @@ static const CGFloat kFastestSpeed = 0.5;
         int minDiff = profile.targetPaceMinutes - minPace;
         int secDiff = profile.targetPaceSeconds - secPace;
         
+        int sensitivity = profile.tempoSensitivity;
+        int plusMinusSecs = 0;
+        
+        if (sensitivity == 50){
+            plusMinusSecs = (kDefaultSensitivityNormalizer)*60;
+        } else if (sensitivity > 50){
+            float sensFactor = (sensitivity - 50)/50.0;
+            plusMinusSecs = (kDefaultSensitivityNormalizer-((int)(kDefaultSensitivityNormalizer - kMaximumSensitivityNormalizer)*sensFactor))*60;
+        } else{
+            float sensFactor = (50 - sensitivity)/50.0;
+            plusMinusSecs = (kDefaultSensitivityNormalizer+((int)(kMinimumSensitivityNormalizer - kDefaultSensitivityNormalizer)*sensFactor))*60;
+        }
+        
         float factor = 0.0;
         // Running too fast - slow the music down
         if ((minDiff > 0 || (minDiff == 0 && secDiff > 0)) && (minDiff > profile.tempoAllowMinutes || (minDiff == profile.tempoAllowMinutes && secDiff > profile.tempoAllowSeconds))){
             
             int totalSecs = (minDiff*60 + secDiff) - (profile.tempoAllowMinutes*60 + profile.tempoAllowSeconds);
             
-            int plusMinusSecs = kPlusMinusMin*60;
-            
             float normalize = totalSecs/plusMinusSecs;
             
             if (normalize > 1){
-                factor = kSlowestSpeed;
+                factor = kSlowestTempo;
             } else{
                 factor = normalize + 1.0;
             }
         } else if ((minDiff < 0 || (minDiff == 0 && secDiff < 0)) && (abs(minDiff) > profile.tempoAllowMinutes || (abs(minDiff) == profile.tempoAllowMinutes && abs(secDiff) > profile.tempoAllowSeconds))){ // Running too slow - speed up the music
             int totalSecs = (abs(minDiff)*60 + abs(secDiff)) - (profile.tempoAllowMinutes*60 + profile.tempoAllowSeconds);
             
-            int plusMinusSecs = kPlusMinusMin*60;
-            
             float normalize = ((float)totalSecs)/plusMinusSecs;
             if (normalize > 1){
-                factor = kFastestSpeed;
+                factor = kFastestTempo;
             } else{
-                factor = normalize*(-kFastestSpeed)+1;
+                factor = normalize*(-kFastestTempo)+1;
             }
             
         } else { // Running just right
