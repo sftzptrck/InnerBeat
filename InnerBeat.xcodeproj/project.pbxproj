@@ -44,6 +44,8 @@
 		2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8216FFD99C00DF0CD8 /* Accelerate.framework */; };
 		2983AA8916FFF85C00DF0CD8 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */; };
 		2983AA8B1700170900DF0CD8 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8A1700170900DF0CD8 /* libstdc++.dylib */; };
+		29A0EB951710F11D00E9E5C6 /* inner-beat-icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EB941710F11D00E9E5C6 /* inner-beat-icon-57.png */; };
+		29A0EB971710F12100E9E5C6 /* inner-beat-icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EB961710F12100E9E5C6 /* inner-beat-icon-114.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +107,8 @@
 		2983AA8616FFF84B00DF0CD8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2983AA8816FFF85C00DF0CD8 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		2983AA8A1700170900DF0CD8 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		29A0EB941710F11D00E9E5C6 /* inner-beat-icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner-beat-icon-57.png"; sourceTree = "<group>"; };
+		29A0EB961710F12100E9E5C6 /* inner-beat-icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner-beat-icon-114.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,8 @@
 		2968B2C816E70205009D884A = {
 			isa = PBXGroup;
 			children = (
+				29A0EB961710F12100E9E5C6 /* inner-beat-icon-114.png */,
+				29A0EB941710F11D00E9E5C6 /* inner-beat-icon-57.png */,
 				290B6BC517052C7000EF6554 /* CoreMedia.framework */,
 				290B6BC317052C5900EF6554 /* AudioToolbox.framework */,
 				290B6BC11705275300EF6554 /* libDIRAC_iOS4-fat.a */,
@@ -344,6 +350,8 @@
 				2968B2FA16E715EB009D884A /* PlaylistSelectViewController.xib in Resources */,
 				2968B31016EC3E6B009D884A /* ProfileEditViewController.xib in Resources */,
 				2968B31C16F43E00009D884A /* RunningViewController.xib in Resources */,
+				29A0EB951710F11D00E9E5C6 /* inner-beat-icon-57.png in Resources */,
+				29A0EB971710F12100E9E5C6 /* inner-beat-icon-114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
