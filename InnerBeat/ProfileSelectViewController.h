@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "PlaylistSelectViewController.h"
 
 @interface ProfileSelectViewController : UIViewController
 {
     __weak IBOutlet UITableView *profileTable;
     IBOutlet UITextView *profilePreview;
+    IBOutlet UIButton *contButton;
     NSInteger selectedRow;
 }
 

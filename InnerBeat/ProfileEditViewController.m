@@ -16,10 +16,25 @@
 
 @synthesize item;
 
+-(id) init
+{
+    self = [super init];
+    if (self){
+        UIImage *gradientImage44 = [[UIImage imageNamed:@"background_color.png"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
+        // Set the background image for *all* UINavigationBars
+        [[UINavigationBar appearance] setBackgroundImage:gradientImage44
+                                           forBarMetrics:UIBarMetricsDefault];
+    }
+    return self;
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[self view] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    //[[self view] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -44,7 +59,6 @@
 {
     item = i;
     [[self navigationItem] setTitle:[item profileName]];
-    
 }
 
 -(IBAction)saveProfile:(id)sender

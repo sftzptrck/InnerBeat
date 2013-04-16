@@ -22,6 +22,16 @@
     if (self){
         UINavigationItem *n = [self navigationItem];
         [n setTitle:@"Profiles"];
+        
+        UIImage *gradientImage44 = [[UIImage imageNamed:@"background_color.png"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
+        // Set the background image for *all* UINavigationBars
+        [[UINavigationBar appearance] setBackgroundImage:gradientImage44
+                                           forBarMetrics:UIBarMetricsDefault];
+        
+        [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:51.0f/255.0f green:204.0f/255.0f blue:0.0f/255.0f alpha:0.4f]];
+        
         selectedRow = -1;
     }
     return self;

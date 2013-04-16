@@ -46,6 +46,10 @@
 		2983AA8B1700170900DF0CD8 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2983AA8A1700170900DF0CD8 /* libstdc++.dylib */; };
 		29A0EB951710F11D00E9E5C6 /* inner-beat-icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EB941710F11D00E9E5C6 /* inner-beat-icon-57.png */; };
 		29A0EB971710F12100E9E5C6 /* inner-beat-icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EB961710F12100E9E5C6 /* inner-beat-icon-114.png */; };
+		29A0EB99171A8C2600E9E5C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A0EB98171A8C2600E9E5C6 /* QuartzCore.framework */; };
+		29A0EB9F171BDB6A00E9E5C6 /* button_background_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EB9E171BDB6A00E9E5C6 /* button_background_large.png */; };
+		29A0EBA1171BDCCA00E9E5C6 /* button_background_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EBA0171BDCCA00E9E5C6 /* button_background_small.png */; };
+		29A0EBA3171D04E000E9E5C6 /* background_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A0EBA2171D04E000E9E5C6 /* background_color.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +113,10 @@
 		2983AA8A1700170900DF0CD8 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		29A0EB941710F11D00E9E5C6 /* inner-beat-icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner-beat-icon-57.png"; sourceTree = "<group>"; };
 		29A0EB961710F12100E9E5C6 /* inner-beat-icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner-beat-icon-114.png"; sourceTree = "<group>"; };
+		29A0EB98171A8C2600E9E5C6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		29A0EB9E171BDB6A00E9E5C6 /* button_background_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_background_large.png; sourceTree = "<group>"; };
+		29A0EBA0171BDCCA00E9E5C6 /* button_background_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_background_small.png; sourceTree = "<group>"; };
+		29A0EBA2171D04E000E9E5C6 /* background_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_color.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29A0EB99171A8C2600E9E5C6 /* QuartzCore.framework in Frameworks */,
 				290B6BC617052C7000EF6554 /* CoreMedia.framework in Frameworks */,
 				290B6BC417052C5900EF6554 /* AudioToolbox.framework in Frameworks */,
 				2983AA8316FFD99C00DF0CD8 /* Accelerate.framework in Frameworks */,
@@ -164,6 +173,10 @@
 		2968B2C816E70205009D884A = {
 			isa = PBXGroup;
 			children = (
+				29A0EBA2171D04E000E9E5C6 /* background_color.png */,
+				29A0EBA0171BDCCA00E9E5C6 /* button_background_small.png */,
+				29A0EB9E171BDB6A00E9E5C6 /* button_background_large.png */,
+				29A0EB98171A8C2600E9E5C6 /* QuartzCore.framework */,
 				29A0EB961710F12100E9E5C6 /* inner-beat-icon-114.png */,
 				29A0EB941710F11D00E9E5C6 /* inner-beat-icon-57.png */,
 				290B6BC517052C7000EF6554 /* CoreMedia.framework */,
@@ -352,6 +365,9 @@
 				2968B31C16F43E00009D884A /* RunningViewController.xib in Resources */,
 				29A0EB951710F11D00E9E5C6 /* inner-beat-icon-57.png in Resources */,
 				29A0EB971710F12100E9E5C6 /* inner-beat-icon-114.png in Resources */,
+				29A0EB9F171BDB6A00E9E5C6 /* button_background_large.png in Resources */,
+				29A0EBA1171BDCCA00E9E5C6 /* button_background_small.png in Resources */,
+				29A0EBA3171D04E000E9E5C6 /* background_color.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

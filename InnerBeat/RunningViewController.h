@@ -32,6 +32,8 @@
     MPMediaQuery *mQuery;
     MPMediaPredicate *mPredicate;
     
+    UIColor *savedBackground;
+    
 }
 @property (nonatomic) BOOL isPaused;
 @property (nonatomic, strong) CLLocationManager *locationManager;

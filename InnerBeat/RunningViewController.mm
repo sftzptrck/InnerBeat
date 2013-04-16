@@ -266,13 +266,16 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
     if (!isPaused){
         [locationManager stopUpdatingLocation];
         [mDiracAudioPlayer pause];
+        [sender setTitle:@"Resume Run" forState:UIControlStateNormal];
         //[self resetLocationUpdates];
+        savedBackground = self.view.backgroundColor;
         self.view.backgroundColor = [UIColor grayColor];
         isPaused = true;
     } else{
         [locationManager startUpdatingLocation];
         [mDiracAudioPlayer play];
-        self.view.backgroundColor = [UIColor whiteColor];
+        [sender setTitle:@"Pause Run" forState:UIControlStateNormal];
+        self.view.backgroundColor = savedBackground;
         isPaused = false;
     }
 }
