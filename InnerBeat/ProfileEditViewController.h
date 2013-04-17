@@ -17,6 +17,8 @@
     __weak IBOutlet UITextField *minuteChangeDiff;
     __weak IBOutlet UITextField *secondChangeDiff;
     __weak IBOutlet UISlider *sensitivity;
+    __weak IBOutlet UISwitch *tempoChangeOn;
+    __weak IBOutlet UISwitch *pitchChangeOn;
     IBOutlet UILabel *errorMessage;
 }
 @property (nonatomic, strong) ProfileItem *item;

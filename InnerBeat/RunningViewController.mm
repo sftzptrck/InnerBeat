@@ -27,8 +27,12 @@ static const NSUInteger kMaximumSensitivityNormalizer = 1;
 static const NSUInteger kMinimumSensitivityNormalizer = 20;
 static const CGFloat kSlowestTempo = 2.0; // The slowest the music tempo will go
 static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
+static const CGFloat kHighestPitch = 12.0;
+static const CGFloat kLowestPitch = -12.0;
+int sensitivity = 0;
 
-@synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer, isPaused, player, slider;
+
+@synthesize locationManager, lastRecordedLocation, lastDistanceCalculation, playlist, profile, totalDistance, currentSpeed, locationHistory, speedHistory, startTime, timer, isPaused, player, curSensitivitySlider;
 
 
 - (id)init
@@ -37,7 +41,9 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
     if (self){
         UINavigationItem *n = [self navigationItem];
         [n setTitle:@"Running Time"];
-
+        sensitivity = profile.audioSensitivity;
+        [curSensitivitySlider setValue:sensitivity];
+        
         totalDistance = 0.0;
         isPaused = false;
         
@@ -129,7 +135,7 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
         int minDiff = profile.targetPaceMinutes - minPace;
         int secDiff = profile.targetPaceSeconds - secPace;
         
-        int sensitivity = profile.tempoSensitivity;
+        //int sensitivity = profile.audioSensitivity;
         int plusMinusSecs = 0;
         
         if (sensitivity == 50){
@@ -142,34 +148,46 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
             plusMinusSecs = (kDefaultSensitivityNormalizer+((int)(kMinimumSensitivityNormalizer - kDefaultSensitivityNormalizer)*sensFactor))*60;
         }
         
-        float factor = 0.0;
-        // Running too fast - slow the music down
-        if ((minDiff > 0 || (minDiff == 0 && secDiff > 0)) && (minDiff > profile.tempoAllowMinutes || (minDiff == profile.tempoAllowMinutes && secDiff > profile.tempoAllowSeconds))){
+        float tempoFactor = 0.0;
+        float pitchFactor = 0.0;
+        // Running too fast - slow the music down/lower the pitch
+        if ((minDiff > 0 || (minDiff == 0 && secDiff > 0)) && (minDiff > profile.audioAllowMinutes || (minDiff == profile.audioAllowMinutes && secDiff > profile.audioAllowSeconds))){
             
-            int totalSecs = (minDiff*60 + secDiff) - (profile.tempoAllowMinutes*60 + profile.tempoAllowSeconds);
+            int totalSecs = (minDiff*60 + secDiff) - (profile.audioAllowMinutes*60 + profile.audioAllowSeconds);
             
             float normalize = totalSecs/plusMinusSecs;
             
             if (normalize > 1){
-                factor = kSlowestTempo;
+                tempoFactor = kSlowestTempo;
+                pitchFactor = kLowestPitch;
+                
             } else{
-                factor = normalize + 1.0;
+                tempoFactor = normalize + 1.0;
+                pitchFactor = -12.0*normalize;
             }
-        } else if ((minDiff < 0 || (minDiff == 0 && secDiff < 0)) && (abs(minDiff) > profile.tempoAllowMinutes || (abs(minDiff) == profile.tempoAllowMinutes && abs(secDiff) > profile.tempoAllowSeconds))){ // Running too slow - speed up the music
-            int totalSecs = (abs(minDiff)*60 + abs(secDiff)) - (profile.tempoAllowMinutes*60 + profile.tempoAllowSeconds);
+        } else if ((minDiff < 0 || (minDiff == 0 && secDiff < 0)) && (abs(minDiff) > profile.audioAllowMinutes || (abs(minDiff) == profile.audioAllowMinutes && abs(secDiff) > profile.audioAllowSeconds))){ // Running too slow - speed up the music
+            int totalSecs = (abs(minDiff)*60 + abs(secDiff)) - (profile.audioAllowMinutes*60 + profile.audioAllowSeconds);
             
             float normalize = ((float)totalSecs)/plusMinusSecs;
             if (normalize > 1){
-                factor = kFastestTempo;
+                tempoFactor = kFastestTempo;
+                pitchFactor = kHighestPitch;
             } else{
-                factor = normalize*(-kFastestTempo)+1;
+                tempoFactor = normalize*(-kFastestTempo)+1;
+                pitchFactor = 12.0*normalize;
             }
             
         } else { // Running just right
-            factor = 1;
+            tempoFactor = 1;
+            pitchFactor = 0;
         }
-         
-        [mDiracAudioPlayer changeDuration:factor];
+        
+        if (profile.tempoChangeOn){
+            [mDiracAudioPlayer changeDuration:tempoFactor];
+        }
+        if (profile.pitchChangeOn){
+            [mDiracAudioPlayer changePitch:powf(2.f, (int)pitchFactor / 12.f)];
+        }
     
         [speedField setText:[NSString stringWithFormat:@"%.4f mi/h", currentSpeed]];
     }
@@ -296,6 +314,12 @@ static const CGFloat kFastestTempo = 0.5; // The fastest the music tempo will go
 - (void) mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)changeSensitivity:(id)sender
+{
+    sensitivity = curSensitivitySlider.value;
+    NSLog(@"sensitivity is %d", sensitivity);
 }
 
 

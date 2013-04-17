@@ -48,9 +48,10 @@
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) AVPlayer *player;
-@property (strong, nonatomic) IBOutlet UISlider *slider;
+@property (strong, nonatomic) IBOutlet UISlider *curSensitivitySlider;
 
 - (IBAction)pauseOrResume:(id)sender;
 - (void)resetLocationUpdates;
+- (IBAction)changeSensitivity:(id)sender;
 
 @end

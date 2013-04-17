@@ -42,9 +42,11 @@
     [super viewWillAppear:animated];
     [profileName setText:[item profileName]];
     [targetPace setText:[NSString stringWithFormat:@"%02d:%02d", [item targetPaceMinutes], [item targetPaceSeconds]]];
-    [minuteChangeDiff setText:[NSString stringWithFormat:@"%d",[item tempoAllowMinutes]]];
-    [secondChangeDiff setText:[NSString stringWithFormat:@"%d",[item tempoAllowSeconds]]];
-    [sensitivity setValue:[item tempoSensitivity]];
+    [minuteChangeDiff setText:[NSString stringWithFormat:@"%d",[item audioAllowMinutes]]];
+    [secondChangeDiff setText:[NSString stringWithFormat:@"%d",[item audioAllowSeconds]]];
+    [sensitivity setValue:[item audioSensitivity]];
+    [tempoChangeOn setOn:[item tempoChangeOn]];
+    [pitchChangeOn setOn:[item pitchChangeOn]];
     
 }
 
@@ -106,9 +108,12 @@
         [errorMessage setText:@"Minutes must be less than 60"];
     }
     
-    [item setTempoAllowMinutes:minChangeDiff];
-    [item setTempoAllowSeconds:secChangeDiff];
-    [item setTempoSensitivity:(int)[sensitivity value]];
+    [item setAudioAllowMinutes:minChangeDiff];
+    [item setAudioAllowSeconds:secChangeDiff];
+    [item setAudioSensitivity:(int)[sensitivity value]];
+    
+    [item setTempoChangeOn:[tempoChangeOn isOn]];
+    [item setPitchChangeOn:[pitchChangeOn isOn]];
     
     ProfileItemStore *profileStore = [ProfileItemStore sharedStore];
     

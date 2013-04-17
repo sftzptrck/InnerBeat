@@ -127,7 +127,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedRow = [indexPath row];
     ProfileItem *selectedProfile = [[[ProfileItemStore sharedStore] allProfiles] objectAtIndex:selectedRow];
-    [profilePreview setText:[NSString stringWithFormat:@"Name: %@\nTarget Pace: %02d:%02d min/mi\nTime Difference Before Change: %02d:%02d", selectedProfile.profileName, selectedProfile.targetPaceMinutes, selectedProfile.targetPaceSeconds, selectedProfile.tempoAllowMinutes, selectedProfile.tempoAllowSeconds]];
+    [profilePreview setText:[NSString stringWithFormat:@"Name: %@\nTarget Pace: %02d:%02d min/mi\nTime Difference Before Change: %02d:%02d", selectedProfile.profileName, selectedProfile.targetPaceMinutes, selectedProfile.targetPaceSeconds, selectedProfile.audioAllowMinutes, selectedProfile.audioAllowSeconds]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

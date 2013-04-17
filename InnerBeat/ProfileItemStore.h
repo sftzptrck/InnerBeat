@@ -21,9 +21,11 @@
                targetPaceHours:(int)targetPaceHours
                 targetPaceMinutes:(int)targetPaceMinutes
                 targetPaceSeconds:(int)targetPaceSeconds
-                tempoAllowMinutes:(int)tempoAllowMinutes
-                tempoAllowSeconds:(int)tempoAllowSeconds
-                tempoSensitivity:(int)tempoSensitivity;
+                audioAllowMinutes:(int)audioAllowMinutes
+                audioAllowSeconds:(int)audioAllowSeconds
+                audioSensitivity:(int)audioSensitivity
+                tempoChangeOn:(BOOL)tempoChangeOn
+                pitchChangeOn:(BOOL)pitchChangeOn;
 - (int)addProfile:(ProfileItem *)profile;
 - (void)removeProfile:(ProfileItem *)p;
 

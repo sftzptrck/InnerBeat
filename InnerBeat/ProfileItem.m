@@ -9,9 +9,9 @@
 #import "ProfileItem.h"
 
 @implementation ProfileItem
-@synthesize profileName, targetPaceHours, targetPaceMinutes, targetPaceSeconds, tempoAllowMinutes, tempoAllowSeconds, tempoSensitivity;
+@synthesize profileName, targetPaceHours, targetPaceMinutes, targetPaceSeconds, audioAllowMinutes, audioAllowSeconds, audioSensitivity, tempoChangeOn, pitchChangeOn;
 
-- (id)initWithProfileName:(NSString *)name targetPaceHours:(int)tPaceHours targetPaceMinutes:(int)tPaceMinutes targetPaceSeconds:(int)tPaceSeconds tempoAllowMinutes:(int)tAllowMinutes tempoAllowSeconds:(int)tAllowSeconds tempoSensitivity:(int)tSensitivity
+- (id)initWithProfileName:(NSString *)name targetPaceHours:(int)tPaceHours targetPaceMinutes:(int)tPaceMinutes targetPaceSeconds:(int)tPaceSeconds audioAllowMinutes:(int)aAllowMinutes audioAllowSeconds:(int)aAllowSeconds audioSensitivity:(int)aSensitivity tempoChangeOn:(BOOL)tChangeOn pitchChangeOn:(BOOL)pChangeOn
 {
     self = [super init];
     
@@ -20,9 +20,11 @@
         [self setTargetPaceHours:tPaceHours];
         [self setTargetPaceMinutes:tPaceMinutes];
         [self setTargetPaceSeconds:tPaceSeconds];
-        [self setTempoAllowMinutes:tAllowMinutes];
-        [self setTempoAllowSeconds:tAllowSeconds];
-        [self setTempoSensitivity:tSensitivity];
+        [self setAudioAllowMinutes:aAllowMinutes];
+        [self setAudioAllowSeconds:aAllowSeconds];
+        [self setAudioSensitivity:aSensitivity];
+        [self setTempoChangeOn:tChangeOn];
+        [self setPitchChangeOn:pChangeOn];
     }
     
     return self;

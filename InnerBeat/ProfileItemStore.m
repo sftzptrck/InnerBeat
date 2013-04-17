@@ -21,7 +21,7 @@
     self = [super init];
     if (self){
         allProfiles = [[NSMutableArray alloc] init];
-        [self addProfile:@"Default" targetPaceHours:0 targetPaceMinutes:90 targetPaceSeconds:0 tempoAllowMinutes:5 tempoAllowSeconds:0 tempoSensitivity:50];
+        [self addProfile:@"Default" targetPaceHours:0 targetPaceMinutes:90 targetPaceSeconds:0 audioAllowMinutes:5 audioAllowSeconds:0 audioSensitivity:50 tempoChangeOn:true pitchChangeOn:false];
     }
     
     return self;
@@ -42,9 +42,9 @@
     return allProfiles;
 }
 
-- (ProfileItem *)addProfile:(NSString *)name targetPaceHours:(int)targetPaceHours targetPaceMinutes:(int)targetPaceMinutes targetPaceSeconds:(int)targetPaceSeconds tempoAllowMinutes:(int)tempoAllowMinutes tempoAllowSeconds:(int)tempoAllowSeconds tempoSensitivity:(int)tempoSensitivity
+- (ProfileItem *)addProfile:(NSString *)name targetPaceHours:(int)targetPaceHours targetPaceMinutes:(int)targetPaceMinutes targetPaceSeconds:(int)targetPaceSeconds audioAllowMinutes:(int)audioAllowMinutes audioAllowSeconds:(int)audioAllowSeconds audioSensitivity:(int)audioSensitivity tempoChangeOn:(BOOL)tempoChangeOn pitchChangeOn:(BOOL)pitchChangeOn
 {
-    ProfileItem *p = [[ProfileItem alloc] initWithProfileName:name targetPaceHours:targetPaceHours targetPaceMinutes:targetPaceMinutes targetPaceSeconds:targetPaceSeconds tempoAllowMinutes:tempoAllowMinutes tempoAllowSeconds:tempoAllowSeconds tempoSensitivity:tempoSensitivity];
+    ProfileItem *p = [[ProfileItem alloc] initWithProfileName:name targetPaceHours:targetPaceHours targetPaceMinutes:targetPaceMinutes targetPaceSeconds:targetPaceSeconds audioAllowMinutes:audioAllowMinutes audioAllowSeconds:audioAllowSeconds audioSensitivity:audioSensitivity tempoChangeOn:tempoChangeOn pitchChangeOn:pitchChangeOn];
     
     [allProfiles addObject:p];
     
